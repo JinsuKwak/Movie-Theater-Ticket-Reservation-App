@@ -5,7 +5,6 @@ import java.sql.*;
 
 public class ManageMovie 
 {
-
     /**
      * setting the url, username, password and table name to a final value, hard coded it into the fil
      */
@@ -16,18 +15,55 @@ public class ManageMovie
     private Connection dbConnect;
     private ResultSet results;
 
-
     LoginInstance loginInstance;
     int deleteMovieID;
 
     public ManageMovie(){
         this.loginInstance = LoginInstance.getInstance();
+        initializeDriver();
+        initializeConnection();
     }
 
-    public void addMovie(int mvID, String mvName, String openDate, int thrID, int ShowromID, int showTimeID, String shownAt){
+    /**
+     * initializing the driver or throws the exception if driver is not found
+     */
+    public void initializeDriver() {
+        try {
+            Class.forName ("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println ("Driver not found! Check output console");
+            e.printStackTrace ();
+        }
+    }
+
+    /**
+     * initializing the connection and throwing exception if failed
+     */
+    public void initializeConnection() {
+        try {
+            dbConnect = DriverManager.getConnection (DBURL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            System.out.println ("Connection Failed! Check output console");
+            e.printStackTrace ();
+        }
+    }
+
+    /**
+     * disconnecting the connection 
+     */
+    public void disconnectConnection() {
+        try {
+            dbConnect.close ();
+        } catch (SQLException e) {
+            System.out.println ("Disconnection Failed! Check output console");
+        }
+    }
+
+
+    public void addMovie(int mvID, String mvName, String openDate, int theID, int showRoomID, int showTimeID, String shownAt){
         // SQL 
         // add movie to 
-        // theater
+        // theaterid is fixed
         // showroom
         // generate showTime with assigned time and
         // generate seats and reset to all avaliable based on showroom.totalSeatNum
@@ -40,4 +76,6 @@ public class ManageMovie
             // delete if Movie.movieID == deletedMovieID 
         }
     }
+
+
 }
