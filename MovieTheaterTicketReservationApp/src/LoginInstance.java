@@ -1,7 +1,5 @@
 import java.util.Date;
 
-import javax.print.attribute.standard.Sides;
-
 public class LoginInstance {
     private static LoginInstance loginInstance;
     private User user;
@@ -14,7 +12,7 @@ public class LoginInstance {
        this.isLoggedIn = false;
        this.logInTime = new Date();         // at miliseconds
     }
-    
+
     public void setInstance(LoginInstance loginInstance){
         LoginInstance.loginInstance = loginInstance;
     }
