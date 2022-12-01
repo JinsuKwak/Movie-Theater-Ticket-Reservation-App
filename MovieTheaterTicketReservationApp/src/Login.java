@@ -1,18 +1,20 @@
 public class Login {
-    private String eneteredUserEmail;
-    private String eneteredUserPW;
+    private String enteredUserEmail;
+    private String enteredUserPW;
     private LoginInstance loginInstance;
     private User user;
     private boolean isAdmin;
     private boolean isLoggedIn = false;
 
-    public Login(String uEmail, String uPW){
-        this.eneteredUserEmail = uEmail;
-        this.eneteredUserPW = uPW;
+    public Login(String uEmail, String uPW)
+    {
+        this.enteredUserEmail = uEmail;
+        this.enteredUserPW = uPW;
         this.loginInstance = LoginInstance.getInstance();
     }
 
-    public boolean validate(String eneteredUseEmail, String eneteredUserPW){
+    public boolean validate(String enteredUseEmail, String enteredUserPW)
+    {
         // pseudocode
 
         // result = JDBC.getResult();
