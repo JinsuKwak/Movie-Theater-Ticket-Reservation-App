@@ -1,3 +1,6 @@
+//control class
+//maarya
+
 public class ManageUser {
     LoginInstance loginInstance;
     Register register;

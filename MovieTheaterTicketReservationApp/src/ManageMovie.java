@@ -1,3 +1,5 @@
+//control class
+//maarya
 public class ManageMovie {
     LoginInstance loginInstance;
     int deleteMovieID;
