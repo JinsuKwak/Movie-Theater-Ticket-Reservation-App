@@ -4,13 +4,13 @@ public class ShowTime {
     private int showTimeID;
     private String shownAt;
     private int reservedByRU;
-    private ArrayList<Boolean> seatAvilabilities;
-    
-    public ShowTime(int stID, String stAT, int rsvdRU, ArrayList<Boolean> seatAvilabilities){
+    private ArrayList<Seat> seats;
+
+    public ShowTime(int stID, String stAT, int rsvdRU, ArrayList<Seat> seats){
         this.showTimeID = stID;
         this.shownAt = stAT;
         this.reservedByRU = rsvdRU;
-        this.seatAvilabilities = seatAvilabilities;
+        this.seats = seats;
     }
 
 	public int getShowTimeID() {
@@ -25,8 +25,8 @@ public class ShowTime {
 		return this.reservedByRU;
 	}
 
-	public ArrayList<Boolean> getSeatAvilabilities() {
-		return this.seatAvilabilities;
+	public ArrayList<Seat> getAllSeats() {
+		return this.seats;
 	}
 
 }

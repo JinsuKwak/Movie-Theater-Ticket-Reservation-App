@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class ShowRoom {
     private int showRoomID;
     private ArrayList<ShowTime> ShowTimes;
-    private ArrayList<Seat> seats;
+    private int totalSeatNum;
 
-    public ShowRoom(int srID, ArrayList<ShowTime> ShowTimes, ArrayList<Seat> seats){
+    public ShowRoom(int srID, ArrayList<ShowTime> ShowTimes, int totalSeatNum){
         this.showRoomID = srID;
         this.ShowTimes = ShowTimes;
-        this.seats = seats;
+        this.totalSeatNum = totalSeatNum;
     }
 
 	public int getShowtRoomID() {
@@ -19,8 +19,8 @@ public class ShowRoom {
 		return this.ShowTimes;
 	}
 
-	public ArrayList<Seat> getSeats() {
-		return this.seats;
+	public int getTotalSeatNum() {
+		return this.totalSeatNum;
 	}
 
 }
