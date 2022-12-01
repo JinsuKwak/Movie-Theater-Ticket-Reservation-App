@@ -1,6 +1,22 @@
 //control class
 //maarya
-public class ManageMovie {
+import java.sql.*;
+
+
+public class ManageMovie 
+{
+
+    /**
+     * setting the url, username, password and table name to a final value, hard coded it into the fil
+     */
+    private final String DBURL = "jdbc:mysql://localhost/movie_theatres";
+    private final String USERNAME = "ensf480";
+    private final String PASSWORD = "ensf480";
+    private final String TABLE_NAME = "Movie";
+    private Connection dbConnect;
+    private ResultSet results;
+
+
     LoginInstance loginInstance;
     int deleteMovieID;
 
