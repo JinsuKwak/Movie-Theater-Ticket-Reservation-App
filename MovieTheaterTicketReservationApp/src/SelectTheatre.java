@@ -1,74 +1,90 @@
 import java.awt.Color;
-import java.awt.EventQueue;
-
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import javax.swing.JToggleButton;
 
-public class SelectTheatre extends JFrame {
+public class SelectTheatre {
+    // Variables
+    private static ArrayList<JButton> buttons = new ArrayList<>();
+    private static ArrayList<JButton> clickedButtons = new ArrayList<>();
+    private static Color originalColor = Color.WHITE;
+    private static Color newColor = Color.RED;
 
-	private JPanel contentPane;
-	private final JButton btnNewButton = new JButton("Cancel");
-	private final JButton btnNewButton_1 = new JButton("Confrim");
-	JToggleButton[][] buttonGrid = new JToggleButton[5][10];
-	Boolean[][] toggled = new Boolean[5][10];
+    // Main Method
+    public void createpage() {
+        // Create Frame
+        JFrame frame = new JFrame("Button Grid");
+        frame.setSize(600, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SelectTheatre frame = new SelectTheatre();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+        // Create Panel
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(10, 5));
 
-	/**
-	 * Create the frame.
-	 */
-	public SelectTheatre() {
-		initGUI();
-	}
-	private void initGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
-				setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(5, 10));
-		btnNewButton.setEnabled(false);
-		btnNewButton.setBounds(10, 168, 209, 92);
-		//contentPane.add(btnNewButton);
-		for(int x = 0; x < 5; x++)
-		{
-			for (int i = 0; i < 10; i++)
-			{
-				buttonGrid[x][i] = new JToggleButton(Integer.toString(i));
-				contentPane.add(buttonGrid[x][i]);
-			}
-		}
-		
-		Color col = buttonGrid[0][0].getBackground();
-		
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		btnNewButton_1.setBounds(217, 168, 216, 92);
-		//contentPane.add(btnNewButton_1);
-	}
+        // Create Buttons
+        for (int i = 0; i < 50; i++) {
+            JButton button = new JButton("Button " + (i + 1));
+            button.setBackground(originalColor);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton button = (JButton) e.getSource();
+                    if (button.getBackground() == originalColor) {
+                        button.setBackground(newColor);
+                        clickedButtons.add(button);
+                    } else {
+                        button.setBackground(originalColor);
+                        clickedButtons.remove(button);
+                    }
+                }
+            });
+            panel.add(button);
+            buttons.add(button);
+        }
+
+        // Add Panel to Frame
+        frame.add(panel);
+        frame.setVisible(true);
+
+        // Create Confirm/Deny Frame
+        JFrame confirmFrame = new JFrame("Confirm/Deny");
+        confirmFrame.setSize(300, 200);
+        confirmFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create Confirm/Deny Panel
+        JPanel confirmPanel = new JPanel();
+        confirmPanel.setLayout(new GridLayout(1, 2));
+
+        // Create Confirm/Deny Buttons
+        JButton confirmButton = new JButton("Confirm");
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Buttons clicked: ");
+                for (JButton button : clickedButtons) {
+                    System.out.println(button.getText());
+                }
+            }
+        });
+        JButton denyButton = new JButton("Deny");
+        denyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (JButton button : clickedButtons) {
+                    button.setBackground(originalColor);
+                }
+                clickedButtons.clear();
+            }
+        });
+        confirmPanel.add(confirmButton);
+        confirmPanel.add(denyButton);
+
+        // Add Confirm/Deny Panel to Frame
+        confirmFrame.add(confirmPanel);
+        confirmFrame.setVisible(true);
+    }
 }
