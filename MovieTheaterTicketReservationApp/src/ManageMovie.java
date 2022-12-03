@@ -83,11 +83,7 @@ public class ManageMovie
         this.deleteMovieID = movieID;
         if(loginInstance.getIsAdmin())// only executable when already logged as admin
         {  
-<<<<<<< HEAD
             // if(Movie.getMovieID() == movieID)
-=======
-            // if(Movie.getMovieID() == movieID) .  // NO NEED THIS PART dircetly delete from database
->>>>>>> f120c218babd3a3ca4039dc9839606bb95776af2
             // {
                 try{
                     String query = "DELETE FROM movie_theatres WHERE movieID = " + movieID;
