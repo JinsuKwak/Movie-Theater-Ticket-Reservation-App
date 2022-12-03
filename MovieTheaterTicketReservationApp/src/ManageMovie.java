@@ -5,8 +5,13 @@ import java.sql.*;
 
 public class ManageMovie 
 {
-
-    private String TABLE_NAME = "Movie";
+    /**
+     * setting the url, username, password and table name to a final value, hard coded it into the fil
+     */
+    private final String DBURL = "jdbc:mysql://localhost/movie_theatres";
+    private final String USERNAME = "ensf480";
+    private final String PASSWORD = "ensf480";
+    private final String TABLE_NAME = "Movie";
     private Connection dbConnect;
     private ResultSet results;
 
@@ -15,12 +20,22 @@ public class ManageMovie
 
     public ManageMovie(){
         this.loginInstance = LoginInstance.getInstance();
+        initializeDriver();
+        initializeConnection();
     }
 
-<<<<<<< HEAD
-    
-    public void addMovie(int mvID, String mvName, String openDate, int theID, int showRoomID, int showTimeID, String shownAt){
-=======
+    /**
+     * initializing the driver or throws the exception if driver is not found
+     */
+    public void initializeDriver() {
+        try {
+            Class.forName ("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println ("Driver not found! Check output console");
+            e.printStackTrace ();
+        }
+    }
+
     /**
      * initializing the connection and throwing exception if failed
      */
@@ -47,7 +62,6 @@ public class ManageMovie
 
     public void addMovie(int mvID, String mvName, String openDate, int theID, int showRoomID, int showTimeID, String shownAt)
     {
->>>>>>> eded90cc0b74d8d49f988d556846fa598d0443ba
         // SQL 
         // add movie to 
         // theaterid is fixed
