@@ -60,7 +60,8 @@ public class ManageMovie
     }
 
 
-    public void addMovie(int mvID, String mvName, String openDate, int theID, int showRoomID, int showTimeID, String shownAt){
+    public void addMovie(int mvID, String mvName, String openDate, int theID, int showRoomID, int showTimeID, String shownAt)
+    {
         // SQL 
         // add movie to 
         // theaterid is fixed
@@ -71,11 +72,54 @@ public class ManageMovie
 
     public void removeMovie(int movieID){
         this.deleteMovieID = movieID;
-        if(loginInstance.getIsAdmin()){  // only executable when already logged as admin
+        if(loginInstance.getIsAdmin())// only executable when already logged as admin
+        {  
+            if(Movie.getMovieID() == movieID)
+            {
+                try{
+                    String query = "DELETE FROM movie_theatres WHERE movieID = " + movieID;
+
+                    PreparedStatement preparedStatement = dbConnect.prepareStatement(query);
+                    preparedStatement.executeUpdate(query);
+                    preparedStatement.close();
+
+                    /*
+                     * Statement statement = dbConnect.createStatement ();
+                        statement.executeUpdate ("DELETE FROM AVAILABLE_FOOD WHERE Name = '" + foodName + "'" + " LIMIT 1");
+                        initialAvailableFoodsList.remove (foodName);
+                     */
+                }
+                catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
             //SQL
             // delete if Movie.movieID == deletedMovieID 
         }
     }
 
+    //getters for sql variables
+    public String getDBURL() {
+        return DBURL;
+    }
 
+    public String getUsername() {
+        return USERNAME;
+    }
+
+    public String getPassword() {
+        return PASSWORD;
+    }
+
+    public String getTableName() {
+        return TABLE_NAME;
+    }
+
+    public Connection getDbConnect() {
+        return dbConnect;
+    }
+
+    public ResultSet getResults() {
+        return results;
+    }
 }
