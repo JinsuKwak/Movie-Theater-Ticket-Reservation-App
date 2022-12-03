@@ -1,5 +1,5 @@
 public abstract class User {
-    private static String userEmail; //changed this to static
+    private static String userEmail; 
     private String userPassword;
     private String userFname;
     private String userLname;
@@ -13,7 +13,7 @@ public abstract class User {
         this.isAdmin = isAdmin;
     }
 
-    public static String getUserEmail(){ //also changed this static to work
+    public static String getUserEmail(){ 
         return userEmail;
     }
     public String getUserPassword(){

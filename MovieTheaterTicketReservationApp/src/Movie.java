@@ -2,10 +2,12 @@ import java.util.Date;
 
 public class Movie 
 {
-    private static int movieID; //changed this to static
+    private int movieID; 
     private String movieName;
-    private double moviePrice;
     private Date openingDate;
+    private double moviePrice;
+    private int theatreID;
+    
 
     public Movie (int mvID, String mvName, double mvPrice, Date openDate){
         this.movieID = mvID;
@@ -14,7 +16,7 @@ public class Movie
         this.openingDate = openDate;
     }
 
-	public static int getMovieID() { //changed this to static as well
+	public int getMovieID() { 
 		return movieID;
 	}
 
