@@ -69,6 +69,8 @@ public class frame extends JFrame {
 		contentPane.add(btnNewButton);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SelectTheatreShow show =  new SelectTheatreShow();
+				
 			}
 		});
 		btnNewButton_1.setBounds(121, 11, 130, 32);
