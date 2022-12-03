@@ -1,7 +1,8 @@
 import java.util.Date;
 
-public class Movie {
-    private int movieID;
+public class Movie 
+{
+    private static int movieID; //changed this to static
     private String movieName;
     private double moviePrice;
     private Date openingDate;
@@ -13,8 +14,8 @@ public class Movie {
         this.openingDate = openDate;
     }
 
-	public int getMovieID() {
-		return this.movieID;
+	public static int getMovieID() { //changed this to static as well
+		return movieID;
 	}
 
 	public String getMovieName() {

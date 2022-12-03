@@ -1,5 +1,5 @@
 public abstract class User {
-    private String userEmail;
+    private static String userEmail; //changed this to static
     private String userPassword;
     private String userFname;
     private String userLname;
@@ -13,19 +13,19 @@ public abstract class User {
         this.isAdmin = isAdmin;
     }
 
-    public String getUserEmail(){
+    public static String getUserEmail(){ //also changed this static to work
         return userEmail;
     }
     public String getUserPassword(){
-        return userPassword;
+        return this.userPassword;
     }
     public String getUserFname(){
-        return userFname;
+        return this.userFname;
     }
     public String getUserLname(){
-        return userLname;
+        return this.userLname;
     }
     public boolean getIsAdmin(){
-        return isAdmin;
+        return this.isAdmin;
     }
 }
