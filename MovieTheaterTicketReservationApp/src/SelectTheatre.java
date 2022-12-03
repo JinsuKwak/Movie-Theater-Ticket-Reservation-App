@@ -1,90 +1,86 @@
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.util.Arrays;
+import javax.swing.*;
 
-public class SelectTheatre {
-    // Variables
-    private static ArrayList<JButton> buttons = new ArrayList<>();
-    private static ArrayList<JButton> clickedButtons = new ArrayList<>();
-    private static Color originalColor = Color.WHITE;
-    private static Color newColor = Color.RED;
+public class SelectTheatre extends JFrame {
+    private JPanel mainPanel;
+    private JPanel seatPanel;
+    private JButton confirmButton;
+    private JLabel titleLabel;
+    private List seatList;
+    private int numSeats;
 
-    // Main Method
-    public void createpage() {
-        // Create Frame
-        JFrame frame = new JFrame("Button Grid");
-        frame.setSize(600, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public SelectTheatre(int numSeats) {
+        super("Theatre Seats Selection");
+        this.numSeats = numSeats;
 
-        // Create Panel
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(10, 5));
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
 
-        // Create Buttons
-        for (int i = 0; i < 50; i++) {
-            JButton button = new JButton("Button " + (i + 1));
-            button.setBackground(originalColor);
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JButton button = (JButton) e.getSource();
-                    if (button.getBackground() == originalColor) {
-                        button.setBackground(newColor);
-                        clickedButtons.add(button);
-                    } else {
-                        button.setBackground(originalColor);
-                        clickedButtons.remove(button);
-                    }
-                }
-            });
-            panel.add(button);
-            buttons.add(button);
+        // Create the seatPanel and add it to the mainPanel
+        seatPanel = new JPanel();
+        seatPanel.setLayout(new GridLayout(numSeats/5, 5));
+        mainPanel.add(seatPanel, BorderLayout.CENTER);
+
+        // Create the buttons and add them to the seatPanel
+        for (int i = 0; i < numSeats; i++) {
+            JButton seatButton = new JButton("Seat " + i);
+            seatButton.addActionListener(new SeatButtonListener());
+            seatPanel.add(seatButton);
         }
 
-        // Add Panel to Frame
-        frame.add(panel);
-        frame.setVisible(true);
+        // Create the title label and add it to the mainPanel
+        titleLabel = new JLabel("Select Your Seats");
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // Create Confirm/Deny Frame
-        JFrame confirmFrame = new JFrame("Confirm/Deny");
-        confirmFrame.setSize(300, 200);
-        confirmFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Create the confirm button and add it to the mainPanel
+        confirmButton = new JButton("Confirm");
+        confirmButton.addActionListener(new ConfirmButtonListener());
+        mainPanel.add(confirmButton, BorderLayout.SOUTH);
 
-        // Create Confirm/Deny Panel
-        JPanel confirmPanel = new JPanel();
-        confirmPanel.setLayout(new GridLayout(1, 2));
+        // Create the seat list and add it to the mainPanel
+        seatList = new List();
+        mainPanel.add(seatList, BorderLayout.EAST);
 
-        // Create Confirm/Deny Buttons
-        JButton confirmButton = new JButton("Confirm");
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Buttons clicked: ");
-                for (JButton button : clickedButtons) {
-                    System.out.println(button.getText());
+        // Add the mainPanel to the frame
+        this.add(mainPanel);
+
+        // Set the frame size and make it visible
+        setSize(500,500);
+        setVisible(true);
+    }
+
+    class SeatButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JButton source = (JButton) e.getSource();
+            if (seatList.getItems().length > 0) {
+            	int count = 1;
+                for (String item : seatList.getItems()) {
+                    if (item.equals(source.getText())) {
+                        seatList.remove(item);
+                    } else if(count == seatList.getItemCount()){
+                        seatList.add(source.getText());
+                        count ++;
+                        }
+                    count ++;
+                    
                 }
+            } else {
+                seatList.add(source.getText());
             }
-        });
-        JButton denyButton = new JButton("Deny");
-        denyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (JButton button : clickedButtons) {
-                    button.setBackground(originalColor);
-                }
-                clickedButtons.clear();
-            }
-        });
-        confirmPanel.add(confirmButton);
-        confirmPanel.add(denyButton);
+        }
+    }
 
-        // Add Confirm/Deny Panel to Frame
-        confirmFrame.add(confirmPanel);
-        confirmFrame.setVisible(true);
+    class ConfirmButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(null, "You have selected " + seatList.getItemCount() + " seats: " + Arrays.toString(seatList.getItems()));
+            Paymentpage pay = new Paymentpage(seatList.getItemCount()*14);
+        }
+    }
+
+    public static void main(String[] args) {
+        new SelectTheatre(50);
     }
 }

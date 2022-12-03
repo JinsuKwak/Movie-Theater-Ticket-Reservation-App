@@ -19,7 +19,7 @@ public class SelectTheatreShow {
     public SelectTheatreShow() {
         // initialize frame
         frame = new JFrame("GUI");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(300, 300);
         frame.setLocationRelativeTo(null);
 
@@ -32,8 +32,8 @@ public class SelectTheatreShow {
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // create new JFrame when button is clicked
-                    SelectTheatre select  = new SelectTheatre();
-                    select.createpage();
+                    SelectTheatre select  = new SelectTheatre(50);
+
                 }
             });
             mainPanel.add(button);
