@@ -26,6 +26,7 @@ public class Payment extends SQLController {
         int seatNum = ticket.getSeat().getSeatNum();
 
         try{
+            initializeConnection();
             String query = "INSERT INTO Ticket (TKID, PCHDATE, RU, MVID, THRID, SRID, STID, STNO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pStatement = dbConnection.prepareStatement(query);
             pStatement.setString(1, ticketID);
@@ -42,6 +43,7 @@ public class Payment extends SQLController {
         } catch ( SQLException e){
             e.printStackTrace();
         }
+        disconnectConnection();
     }
 
     public void makePayment(){
@@ -49,6 +51,7 @@ public class Payment extends SQLController {
     }
 
     public void updateSeat(){
+        initializeConnection();
         ShowTime showTime = ticket.getShowTime();
         int showTimeID = showTime.getShowTimeID();
         int seatNum = ticket.getSeat().getSeatNum();
@@ -77,12 +80,7 @@ public class Payment extends SQLController {
                 e.printStackTrace();
             }
         }
-
-        try {
-            dbConnection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        disconnectConnection();
     }
 
     public void sendEmail(){

@@ -23,6 +23,7 @@ public class Login extends SQLController {
 
     public boolean validate(){
         try{
+            initializeConnection();
             String query = "SELECT * From Users WHERE email = " + enteredUserEmail+" AND password = "+enteredUserPW;
             PreparedStatement pStatement = this.dbConnection.prepareStatement(query);
             result = pStatement.executeQuery();
@@ -55,30 +56,14 @@ public class Login extends SQLController {
                 }
 
             }
-
-
-
             result.close();
             pStatement.close();
-            dbConnection.close();
+            disconnectConnection();
+    
         } catch (SQLException e){
             e.printStackTrace();
         }   
-
-        // pseudocode
-
-        // result = JDBC.getResult();
-        // if(result is notvalid){
-        //     return isLoggedIn;
-        // }
         
-        // isLoggedIn = true;
-        // if(result.isAdmin == true){
-        //     this.isAdmin = true;
-        //     this.user = new AdminUser(eneteredUserEmail, eneteredUserPW, result.fName, result.Lname, isAdmin);
-        // } else {
-        //     this.user = new RegisteredUser(eneteredUserEmail, eneteredUserPW, result.fName, result.Lname, isAdmin, eneteredUserPW)
-        // }
         updateInstance();
         return isLoggedIn;
     }

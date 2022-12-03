@@ -66,6 +66,10 @@ public class Ticket {
 		return this.seatNum;
 	}
 
+	public void setPurchasedDate(Date date){
+		this.purchasedDate = date;
+	}
+
     public Date getPurchasedDate(){
         return this.purchasedDate;
     }
