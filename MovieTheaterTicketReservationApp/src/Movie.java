@@ -17,7 +17,11 @@ public class Movie
     }
 
 	public int getMovieID() { 
+<<<<<<< HEAD
 		return movieID;
+=======
+		return this.movieID;
+>>>>>>> f120c218babd3a3ca4039dc9839606bb95776af2
 	}
 
 	public String getMovieName() {
