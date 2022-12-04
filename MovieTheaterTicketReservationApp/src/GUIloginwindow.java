@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class loginwindow extends JFrame {
+public class GUIloginwindow extends JFrame {
 
 	private JPanel contentPane;
 	private final JTextField UsernameInput = new JTextField();
@@ -39,7 +39,7 @@ public class loginwindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					loginwindow frame = new loginwindow();
+					GUIloginwindow frame = new GUIloginwindow();
 					frame.setVisible(true);
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -53,7 +53,7 @@ public class loginwindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public loginwindow() {
+	public GUIloginwindow() {
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -136,8 +136,8 @@ public class loginwindow extends JFrame {
 					System.out.print("printed");
 					PasswordInput.setText("");
 					UsernameInput.setText("");
-					InputedPassword.setText("");
-					InputedUsername.setText("");
+					InputedPassword.setText(username);
+					InputedUsername.setText(password);
 			}
 		});
 		btnNewButton.setBounds(160, 168, 96, 23);

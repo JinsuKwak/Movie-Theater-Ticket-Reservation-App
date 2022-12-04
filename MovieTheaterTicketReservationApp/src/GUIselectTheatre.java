@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.*;
 
-public class SelectTheatre extends JFrame {
+public class GUIselectTheatre extends JFrame {
     private JPanel mainPanel;
     private JPanel seatPanel;
     private JButton confirmButton;
@@ -12,7 +12,7 @@ public class SelectTheatre extends JFrame {
     private List seatList;
     private int numSeats;
 
-    public SelectTheatre(int numSeats) {
+    public GUIselectTheatre(int numSeats) {
         super("Theatre Seats Selection");
         this.numSeats = numSeats;
 
@@ -60,6 +60,7 @@ public class SelectTheatre extends JFrame {
                 for (String item : seatList.getItems()) {
                     if (item.equals(source.getText())) {
                         seatList.remove(item);
+                        break;
                     } else if(count == seatList.getItemCount()){
                         seatList.add(source.getText());
                         count ++;
@@ -76,11 +77,11 @@ public class SelectTheatre extends JFrame {
     class ConfirmButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JOptionPane.showMessageDialog(null, "You have selected " + seatList.getItemCount() + " seats: " + Arrays.toString(seatList.getItems()));
-            Paymentpage pay = new Paymentpage(seatList.getItemCount()*14);
+            GUIPaymentpage pay = new GUIPaymentpage();
         }
     }
 
     public static void main(String[] args) {
-        new SelectTheatre(50);
+        new GUIselectTheatre(50);
     }
 }

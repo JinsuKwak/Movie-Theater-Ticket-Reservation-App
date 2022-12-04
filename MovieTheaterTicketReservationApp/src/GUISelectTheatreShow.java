@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SelectTheatreShow {
+public class GUISelectTheatreShow {
     // frame for the main window
     private JFrame frame;
     // panel for the main window
@@ -16,7 +16,7 @@ public class SelectTheatreShow {
     };
 
     // constructor to initialize GUI
-    public SelectTheatreShow() {
+    public GUISelectTheatreShow() {
         // initialize frame
         frame = new JFrame("GUI");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -32,7 +32,7 @@ public class SelectTheatreShow {
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // create new JFrame when button is clicked
-                    SelectTheatre select  = new SelectTheatre(50);
+                    GUIselectTheatre select  = new GUIselectTheatre(50);
 
                 }
             });
