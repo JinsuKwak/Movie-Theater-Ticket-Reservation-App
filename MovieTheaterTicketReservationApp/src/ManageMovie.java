@@ -2,7 +2,6 @@
 //maarya
 import java.sql.*;
 
-
 public class ManageMovie 
 {
     /**
@@ -56,12 +55,21 @@ public class ManageMovie
             dbConnect.close ();
         } catch (SQLException e) {
             System.out.println ("Disconnection Failed! Check output console");
+            e.printStackTrace();
         }
     }
 
 
     public void addMovie(int mvID, String mvName, String openDate, int theID, int showRoomID, int showTimeID, String shownAt)
     {
+        try{
+            String query = "INSERT INTO Movie (movieID, movieName, openingDate, ) VALUES (?,?,?)";
+
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
         // SQL 
         // add movie to 
         // theaterid is fixed
@@ -70,11 +78,12 @@ public class ManageMovie
         // generate seats and reset to all avaliable based on showroom.totalSeatNum
     }
 
-    public void removeMovie(int movieID){
+    public void removeMovie(int movieID)
+    {
         this.deleteMovieID = movieID;
         if(loginInstance.getIsAdmin())// only executable when already logged as admin
         {  
-            // if(Movie.getMovieID() == movieID) .  // NO NEED THIS PART dircetly delete from database
+            // if(Movie.getMovieID() == movieID)
             // {
                 try{
                     String query = "DELETE FROM movie_theatres WHERE movieID = " + movieID;
@@ -92,7 +101,7 @@ public class ManageMovie
                 catch(SQLException e){
                     e.printStackTrace();
                 }
-            }
+            //}
             //SQL
             // delete if Movie.movieID == deletedMovieID 
         // }        // NO NEED THIS PART

@@ -4,8 +4,10 @@ public class Movie
 {
     private int movieID; 
     private String movieName;
-    private double moviePrice;
     private Date openingDate;
+    private double moviePrice;
+    private int theatreID;
+    
 
     public Movie (int mvID, String mvName, double mvPrice, Date openDate){
         this.movieID = mvID;
@@ -15,7 +17,7 @@ public class Movie
     }
 
 	public int getMovieID() { 
-		return this.movieID;
+		return movieID;
 	}
 
 	public String getMovieName() {

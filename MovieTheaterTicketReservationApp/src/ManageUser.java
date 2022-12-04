@@ -2,7 +2,7 @@
 //maarya
 import java.sql.*;
 
-public class ManageUser 
+public class ManageUser
 {
     LoginInstance loginInstance;
     Register register;
@@ -74,6 +74,8 @@ public class ManageUser
         this.deleteUserEmail = uEmail;
         if(loginInstance.getIsAdmin())// only executable when already logged as admin
         {  
+            // if(User.getUserEmail() == uEmail)
+            // {
                 try{
                     String query = "DELETE FROM movie_theatres WHERE email = " + uEmail;
 
@@ -88,7 +90,9 @@ public class ManageUser
                      */
                 } catch(SQLException e){
                     e.printStackTrace();
-                }}
+                }
+            //}
+        }
     }
 
     //getters for sql variables
