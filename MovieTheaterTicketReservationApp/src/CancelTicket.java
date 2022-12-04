@@ -92,7 +92,7 @@ public class CancelTicket extends SQLController {
     }
 
     public void sendEmail(){
-        Email.sendEmailTicketCancelled();
+        Email.sendEmailTicketCancelled(ticket);
     }
 
 }

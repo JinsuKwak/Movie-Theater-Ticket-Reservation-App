@@ -1,0 +1,2 @@
+      java.sql.Date sqlDate = result.getDate("purchasedDate");
+                    java.util.Date utilDate = new java.util.Date(sqlDate.getTime());

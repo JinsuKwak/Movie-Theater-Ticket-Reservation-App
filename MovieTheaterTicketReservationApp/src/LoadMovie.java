@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class LoadMovie extends SQLController {
     private LoginInstance loginInstance;
-    private ArrayList<Theater> theatres;
+    private Theater selectedTheater;
     private ArrayList<MovieSummary> movieSummaries;
 
     public LoadMovie(){
@@ -55,7 +55,7 @@ public class LoadMovie extends SQLController {
     }
 
 
-    public void selectMovie(int movieID){
+    public Theater selectMovie(int movieID){
         ArrayList<Movie> movies = new ArrayList<Movie>();
         int theaterID = 1;
         try {
@@ -133,7 +133,8 @@ public class LoadMovie extends SQLController {
                         resultSR.getInt("showRoomID"),
                         showTimes,
                         resultSR.getInt("totalSeats"),
-                        resultSR.getInt("movieID")
+                        resultSR.getInt("movieID"),
+                        resultSR.getInt("showRoomID")
                     );
                     showRooms.add(showRoom);
                 }
@@ -147,18 +148,17 @@ public class LoadMovie extends SQLController {
                     movies,
                     showRooms
                 );
-                theatres.add(theater);
+                selectedTheater = theater;
             }
             resultThr.close();
             pStatementThr.close();
             result.close();
             pStatement.close();
-
-
             disconnectConnection();
         } catch (SQLException e){
             e.printStackTrace();
         }
+        return selectedTheater;
     }
 }
 
@@ -189,5 +189,9 @@ class MovieSummary {
 
     public double getMoviePrice(){
         return this.moviePrice;
+    }
+
+    public java.util.Date getDate() {
+        return this.openingDate;
     }
 }
