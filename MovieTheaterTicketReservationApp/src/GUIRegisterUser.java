@@ -1,13 +1,12 @@
-
 import javax.swing.*;
 import java.awt.*;
 
-public class GUICancelMovie {
+public class GUIRegisterUser {
 
     public static void main(String[] args) {
 
         // create a JFrame
-        JFrame frame = new JFrame("Cancel Movie Page");
+        JFrame frame = new JFrame("Sign Up Page");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // create a JPanel
@@ -15,19 +14,19 @@ public class GUICancelMovie {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        // create a label and text field for entering email address
-        JLabel emailLabel = new JLabel("Email Address:");
+        // create a label and text field for entering username
+        JLabel usernameLabel = new JLabel("Username:");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        panel.add(emailLabel, c);
-        JTextField emailField = new JTextField(20);
+        panel.add(usernameLabel, c);
+        JTextField usernameField = new JTextField(20);
         c.gridx = 1;
         c.gridy = 0;
-        panel.add(emailField, c);
+        panel.add(usernameField, c);
 
         // create a label and text field for entering password
-        JLabel passwordLabel = new JLabel("Ticket ID:");
+        JLabel passwordLabel = new JLabel("Password:");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
@@ -37,13 +36,24 @@ public class GUICancelMovie {
         c.gridy = 1;
         panel.add(passwordField, c);
 
-        // create a cancel movie button
-        JButton cancelMovieButton = new JButton("Cancel Movie");
+        // create a label and text field for entering credit card info
+        JLabel cardLabel = new JLabel("Credit Card Info:");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 2;
+        panel.add(cardLabel, c);
+        JTextField cardField = new JTextField(20);
+        c.gridx = 1;
+        c.gridy = 2;
+        panel.add(cardField, c);
+
+        // create a sign up button
+        JButton signUpButton = new JButton("Sign Up");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 3;
         c.gridwidth = 2;
-        panel.add(cancelMovieButton, c);
+        panel.add(signUpButton, c);
 
         // add JPanel to JFrame
         frame.add(panel);

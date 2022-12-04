@@ -4,17 +4,19 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.*;
 
-public class GUIselectTheatre extends JFrame {
+public class GUIselectTheatreSeats extends JFrame {
     private JPanel mainPanel;
     private JPanel seatPanel;
     private JButton confirmButton;
     private JLabel titleLabel;
     private List seatList;
     private int numSeats;
+    static ShowTime showtime;
 
-    public GUIselectTheatre(int numSeats) {
+    public GUIselectTheatreSeats(ShowTime incomingshowtime) {
         super("Theatre Seats Selection");
-        this.numSeats = numSeats;
+        this.showtime = incomingshowtime;
+        this.numSeats = incomingshowtime.getAllSeats().size();
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -77,11 +79,15 @@ public class GUIselectTheatre extends JFrame {
     class ConfirmButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JOptionPane.showMessageDialog(null, "You have selected " + seatList.getItemCount() + " seats: " + Arrays.toString(seatList.getItems()));
+            
+            
+            
             GUIPaymentpage pay = new GUIPaymentpage();
         }
     }
 
     public static void main(String[] args) {
-        new GUIselectTheatre(50);
+    	 
+        new GUIselectTheatreSeats(showtime);
     }
 }

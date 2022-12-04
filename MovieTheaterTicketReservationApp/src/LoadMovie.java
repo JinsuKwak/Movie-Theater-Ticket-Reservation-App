@@ -160,6 +160,11 @@ public class LoadMovie extends SQLController {
             e.printStackTrace();
         }
     }
+    public ArrayList<MovieSummary> getmoviesummary()
+    {
+		return movieSummaries;
+    	
+    }
 }
 
 
