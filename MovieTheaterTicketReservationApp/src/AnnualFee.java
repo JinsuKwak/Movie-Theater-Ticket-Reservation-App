@@ -32,11 +32,9 @@ public class AnnualFee {
     }
 
 
-
     private void processPayment() {
         for(User user : allRegisteredUsers) {
-            Email email = new Email();
-            email.sendSubscription(username, amount);
+            Email.sendSubscription(username, amount);
         }
     }
 
