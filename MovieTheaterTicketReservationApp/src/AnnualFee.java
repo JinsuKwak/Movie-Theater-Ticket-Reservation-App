@@ -17,6 +17,7 @@ public class AnnualFee {
     public void startAnnualFee(int fee, Date date) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
+            // load all RU, check user != Admin
             @Override
             public void run() {
                 processPayment();
