@@ -78,8 +78,30 @@ public class GUIselectTheatreSeats extends JFrame {
 
     class ConfirmButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(null, "You have selected " + seatList.getItemCount() + " seats: " + Arrays.toString(seatList.getItems()));
-            
+            //JOptionPane.showMessageDialog(null, "You have selected " + seatList.getItemCount() + " seats: " + Arrays.toString(seatList.getItems()));
+            for(String item: seatList.getItems())
+            {
+            	for(int x = 0; x < numSeats; x++)
+            	{
+            		if(item.matches(Integer.toString(showtime.getAllSeats().get(x).getSeatNum())))
+            		{
+            			
+            			//This is whereI got stuck. I can find the seat array however there are no ticket numbers or tickets associated with those seats.
+            			
+            		
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            		}
+            	}
+            }
             
             
             GUIPaymentpage pay = new GUIPaymentpage();

@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUIRegisterUser {
 
@@ -15,7 +17,7 @@ public class GUIRegisterUser {
         GridBagConstraints c = new GridBagConstraints();
 
         // create a label and text field for entering username
-        JLabel usernameLabel = new JLabel("Username:");
+        JLabel usernameLabel = new JLabel("Email:");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -35,23 +37,46 @@ public class GUIRegisterUser {
         c.gridx = 1;
         c.gridy = 1;
         panel.add(passwordField, c);
+        
+        
+        // create a label and text field for entering First Name
+        JLabel firstname = new JLabel("First Name:");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 2;
+        panel.add(firstname, c);
+        JTextField firstnamefield = new JTextField(20);
+        c.gridx = 1;
+        c.gridy = 2;
+        panel.add(firstnamefield, c);
+
+        // create a label and text field for entering Last Name
+        JLabel lastname = new JLabel("First Name:");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 3;
+        panel.add(lastname, c);
+        JTextField lastnamefield = new JTextField(20);
+        c.gridx = 1;
+        c.gridy = 3;
+        panel.add(lastnamefield, c);
 
         // create a label and text field for entering credit card info
         JLabel cardLabel = new JLabel("Credit Card Info:");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 4;
         panel.add(cardLabel, c);
         JTextField cardField = new JTextField(20);
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 4;
         panel.add(cardField, c);
 
         // create a sign up button
         JButton signUpButton = new JButton("Sign Up");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 5;
         c.gridwidth = 2;
         panel.add(signUpButton, c);
 
@@ -61,5 +86,12 @@ public class GUIRegisterUser {
         // set size of JFrame and make it visible
         frame.setSize(400, 400);
         frame.setVisible(true);
+        signUpButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Register user1 = new Register(usernameField.getText(), passwordField.getText(), firstnamefield.getText(), lastnamefield.getText(), cardField.getText());
+			}
+		});
     }
 }
