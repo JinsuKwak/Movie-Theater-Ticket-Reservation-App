@@ -1,6 +1,7 @@
 //control class
 //maarya
 import java.sql.*;
+import java.sql.PreparedStatement;
 
 public class ManageMovie 
 {
@@ -66,6 +67,7 @@ public class ManageMovie
         try{
             String query = "INSERT INTO Movie (movieID, movieName, openingDate, moviePrice,theatreID) VALUES (?,?,?,?,?)"; //for inserting into 
             // String query = "INSERT INTO cats (name, owner, birth) VALUES (?,?,?)";
+            //PreparedStatement myStmt = dbConnect.prepareStatement(query);
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
             
             myStmt.setLong(1, mvID);

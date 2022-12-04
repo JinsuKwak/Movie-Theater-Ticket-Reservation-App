@@ -1,11 +1,14 @@
 public class Email {
-    private Ticket ticket;
 
-    public Email(Ticket ticket){
-        this.ticket = ticket;
-    }
-
-    public void sendEmailTicketPurchased(){
+    public static void sendEmailTicketPurchased(){
 
     }
+
+    public static void  sendEmailTicketCancelled() {
+    }
+
+    public static void sendSubscription(){
+
+    }
+
 }

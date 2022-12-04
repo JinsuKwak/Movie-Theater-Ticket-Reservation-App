@@ -1,6 +1,7 @@
 //control class
 //maarya
 import java.sql.*;
+import java.sql.PreparedStatement;
 
 public class ManageUser
 {
@@ -84,9 +85,7 @@ public class ManageUser
                     preparedStatement.close();
                 } catch(SQLException e){
                     e.printStackTrace();
-                }
-            //}
-        }
+                }}
     }
 
     //getters for sql variables

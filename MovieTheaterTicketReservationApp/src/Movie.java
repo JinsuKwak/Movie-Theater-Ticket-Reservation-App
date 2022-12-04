@@ -19,7 +19,7 @@ public class Movie
     }
 
 	public int getMovieID() { 
-		return movieID;
+		return this.movieID;
 	}
 
 	public String getMovieName() {
