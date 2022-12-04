@@ -1,8 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class GUISelectTheatreShow {
+	
+	//Load movie summary
+	LoadMovie loadedmoviesum  = new LoadMovie();
+	Theater showtheatre;
     // frame for the main window
     private JFrame frame;
     // panel for the main window
@@ -17,6 +22,8 @@ public class GUISelectTheatreShow {
 
     // constructor to initialize GUI
     public GUISelectTheatreShow() {
+    	//initializes the movie list
+    	loadedmoviesum.loadMovies();  	
         // initialize frame
         frame = new JFrame("GUI");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -32,7 +39,22 @@ public class GUISelectTheatreShow {
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // create new JFrame when button is clicked
-                    GUIselectTheatre select  = new GUIselectTheatre(50);
+                	
+                	//Finds the showroom for the movie
+                	for(int i = 0; i < loadedmoviesum.getmoviesummary().size(); i++)
+                	{
+                		if(loadedmoviesum.getmoviesummary().get(i).getMovieName().matches(button.getText()))
+                		{
+                			showtheatre = loadedmoviesum.selectMovie(loadedmoviesum.getmoviesummary().get(i).getMovieID());
+                		}
+                	}
+                	
+                	
+       
+                	GUIShowroom showroom = new GUIShowroom(showtheatre);
+                	showroom.main(null);
+                	
+                    //GUIselectTheatreSeats select  = new GUIselectTheatreSeats(50);
 
                 }
             });

@@ -160,6 +160,11 @@ public class LoadMovie extends SQLController {
         }
         return selectedTheater;
     }
+    public ArrayList<MovieSummary> getmoviesummary()
+    {
+		return movieSummaries;
+    	
+    }
 }
 
 

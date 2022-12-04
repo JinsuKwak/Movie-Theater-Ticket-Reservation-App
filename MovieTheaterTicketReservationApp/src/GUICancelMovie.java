@@ -27,7 +27,7 @@ public class GUICancelMovie {
         panel.add(emailField, c);
 
         // create a label and text field for entering password
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel passwordLabel = new JLabel("Ticket ID:");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
@@ -36,23 +36,6 @@ public class GUICancelMovie {
         c.gridx = 1;
         c.gridy = 1;
         panel.add(passwordField, c);
-
-        // create a list of available seats
-        String[] availableSeats = {"A1", "A2", "A3", "B1", "B2", "B3"};
-        JList<String> seatList = new JList<>(availableSeats);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 2;
-        c.gridwidth = 2;
-        panel.add(seatList, c);
-
-        // create a select seat button
-        JButton selectSeatButton = new JButton("Select Seat");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 3;
-        c.gridwidth = 2;
-        panel.add(selectSeatButton, c);
 
         // create a cancel movie button
         JButton cancelMovieButton = new JButton("Cancel Movie");

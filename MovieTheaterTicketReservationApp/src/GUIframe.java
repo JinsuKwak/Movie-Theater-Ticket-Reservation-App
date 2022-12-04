@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUIframe {
+	public Boolean isloggedin = false;
+	public RegisteredUser userloggedin = new RegisteredUser(null, null, null, null, false, null);
 
     public static void main(String[] args) {
 
@@ -73,11 +75,28 @@ public class GUIframe {
         c.gridy = 1;
         panel.add(button3, c);
 
+        
+        JButton button4 = new JButton("Register User");
+        button3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				GUICancelMovie cancel = new GUICancelMovie();
+				cancel.main(args);
+				
+				
+			}
+		});
+        c.gridx = 3;
+        c.gridy = 1;
+        panel.add(button4, c);
+        
         // add JPanel to JFrame
         frame.add(panel);
 
         // set size of JFrame and make it visible
-        frame.setSize(400, 400);
+        frame.setSize(600, 400);
         frame.setVisible(true);
     }
 }
