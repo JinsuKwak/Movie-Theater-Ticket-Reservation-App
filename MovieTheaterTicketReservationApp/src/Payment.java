@@ -86,7 +86,6 @@ public class Payment extends SQLController {
     }
 
     public void sendEmail(){
-        Email email = new Email(ticket);
-        email.sendEmailTicketPurchased();
+        Email.sendEmailTicketPurchased();
     }
 }
