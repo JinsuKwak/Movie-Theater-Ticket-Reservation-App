@@ -74,6 +74,8 @@ public class ManageUser
         this.deleteUserEmail = uEmail;
         if(loginInstance.getIsAdmin())// only executable when already logged as admin
         {  
+            // if(User.getUserEmail() == uEmail)
+            // {
                 try{
                     String query = "DELETE FROM movie_theatres WHERE email = " + uEmail;
 
