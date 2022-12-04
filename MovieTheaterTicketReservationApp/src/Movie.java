@@ -9,11 +9,13 @@ public class Movie
     private int theatreID;
     
 
-    public Movie (int mvID, String mvName, double mvPrice, Date openDate){
+    public Movie (int mvID, String mvName, Date openDate, double mvPrice, int theaID)
+    {
         this.movieID = mvID;
         this.movieName = mvName;
-        this.moviePrice = mvPrice;
         this.openingDate = openDate;
+        this.moviePrice = mvPrice;
+        this.theatreID = theaID;
     }
 
 	public int getMovieID() { 
@@ -24,12 +26,19 @@ public class Movie
 		return this.movieName;
 	}
 
+    public Date getOpeningDate() {
+		return this.openingDate;
+    }
+
     public double getMoviePrice() {
 		return this.moviePrice;
 	}
 
-	public Date getOpeningDate() {
-		return this.openingDate;
+    public int getTheatreID()
+    {
+        return this.theatreID;
     }
+
+	
 
 }

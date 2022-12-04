@@ -1,6 +1,7 @@
 //control class
 //maarya
 import java.sql.*;
+import java.sql.PreparedStatement;
 
 public class ManageUser
 {
@@ -82,12 +83,6 @@ public class ManageUser
                     PreparedStatement preparedStatement = dbConnect.prepareStatement(query);
                     preparedStatement.executeUpdate(query);
                     preparedStatement.close();
-
-                    /*
-                     * Statement statement = dbConnect.createStatement ();
-                        statement.executeUpdate ("DELETE FROM AVAILABLE_FOOD WHERE Name = '" + foodName + "'" + " LIMIT 1");
-                        initialAvailableFoodsList.remove (foodName);
-                     */
                 } catch(SQLException e){
                     e.printStackTrace();
                 }}

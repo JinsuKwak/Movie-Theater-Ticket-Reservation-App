@@ -54,6 +54,7 @@ public class LoadMovie extends SQLController {
         return movieSummaries;
     }
 
+
     public void selectMovie(int movieID){
         ArrayList<Movie> movies = new ArrayList<Movie>();
         int theaterID = 1;
@@ -69,8 +70,9 @@ public class LoadMovie extends SQLController {
                 Movie movie = new Movie(
                     result.getInt("movieID"),
                     result.getString("movieName"),
-                    result.getFloat("moviePrice"),
-                    openingDate
+                    openingDate,
+                    result.getDouble("moviePrice"),
+                    result.getInt("theatreID")
                 );
                 theaterID = result.getInt("theatreID");
                 movies.add(movie);
