@@ -74,11 +74,6 @@ public class ManageUser
         this.deleteUserEmail = uEmail;
         if(loginInstance.getIsAdmin())// only executable when already logged as admin
         {  
-<<<<<<< HEAD
-            // if(User.getUserEmail() == uEmail)
-            // {
-=======
->>>>>>> f120c218babd3a3ca4039dc9839606bb95776af2
                 try{
                     String query = "DELETE FROM movie_theatres WHERE email = " + uEmail;
 
@@ -93,13 +88,7 @@ public class ManageUser
                      */
                 } catch(SQLException e){
                     e.printStackTrace();
-<<<<<<< HEAD
-                }
-            //}
-        }
-=======
                 }}
->>>>>>> f120c218babd3a3ca4039dc9839606bb95776af2
     }
 
     //getters for sql variables

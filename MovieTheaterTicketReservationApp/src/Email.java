@@ -8,4 +8,7 @@ public class Email {
     public void sendEmailTicketPurchased(){
 
     }
+
+    public void sendEmailTicketCancelled() {
+    }
 }

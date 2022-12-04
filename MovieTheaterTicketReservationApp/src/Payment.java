@@ -27,7 +27,9 @@ public class Payment extends SQLController {
 
         try{
             initializeConnection();
-            String query = "INSERT INTO Ticket (TKID, PCHDATE, RU, MVID, THRID, SRID, STID, STNO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Ticket "+
+            "(TKID, PCHDATE, RU, MVID, THRID, SRID, STID, STNO) "+
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pStatement = dbConnection.prepareStatement(query);
             pStatement.setString(1, ticketID);
             pStatement.setDate(2, purchasedDate);
