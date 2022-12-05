@@ -2,7 +2,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
 
 public class GUIPayment extends JFrame {
@@ -68,16 +68,28 @@ public class GUIPayment extends JFrame {
 		add(confirmButton);
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				email = emailText.getText();
-				phone = phoneText.getText();
+				email = emailText.getText().trim();
+				phone = phoneText.getText().trim();
 				cardNumber = cardNumberText.getText();
 				expiration = expirationText.getText();
-				email = email.trim();
-				ticket.setUserEmail(email);
-				Payment payment = new Payment(ticket,ticketSeats);
-				payment.createTickets();
-				payment.updateSeat();
-				payment.sendEmail(); 
+				if(email.contains("@")){
+					if(cardNumber.length() == 6){
+						ticket.setUserEmail(email);
+						Payment payment = new Payment(ticket,ticketSeats);
+						payment.createTickets();
+						payment.updateSeat();
+						payment.sendEmail(); 
+						showMessageDialog(null, "Payment Processed Successfully, Please Check your E-mail for Tickets");
+					} else {
+						showMessageDialog(null, "Card Number must be 6 digit Integer");
+						cardNumber = "";
+						cardNumberText.setText(cardNumber);
+					}
+				} else {
+					showMessageDialog(null, "E-mail Addresss must contain '@'");
+					email = "";
+					emailText.setText(email);
+				}
 			}
 		});
 

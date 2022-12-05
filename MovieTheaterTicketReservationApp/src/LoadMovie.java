@@ -23,12 +23,17 @@ public class LoadMovie extends SQLController {
 
             initializeConnection();
             String query;
+            PreparedStatement pStatement;
             if(loginInstance.getIsLoggedIn()){
                 query = "SELECT * FROM Movie";
+                pStatement = dbConnection.prepareStatement(query);
             } else {
-                query = "SELECT * FROM Movie";  //TODO for OU
+                java.util.Date todaysDate = new java.util.Date();
+                java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());
+                query = "SELECT * FROM Movie WHERE openingDate <= ?";
+                pStatement = dbConnection.prepareStatement(query);
+                pStatement.setDate(1, sqlDate);
             }
-            PreparedStatement pStatement = dbConnection.prepareStatement(query);
             ResultSet result = pStatement.executeQuery();
 
             if(!result.isBeforeFirst()){

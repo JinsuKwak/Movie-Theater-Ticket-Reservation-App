@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class GUISelectMovie {
@@ -30,12 +31,14 @@ public class GUISelectMovie {
         mainPanel.setBackground(new Color(49, 59, 114));
         // add buttons to the main panel
         for (Movie movieSummary : movieSummaries) {
-            JButton button = new JButton(movieSummary.getMovieName());
+            SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+            String openDate = formatter.format(movieSummary.getOpeningDate());
+            JButton button = new JButton(movieSummary.getMovieName()+" : "
+            +openDate);
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // create new JFrame when button is clicked
                     Theater theater = loadMovie.selectMovie(movieSummary.getMovieID());
-                    Movie movie = movieSummary;
                     ticket.setTheater(theater);
                     ticket.setMovie(movieSummary);
                     GUISelectShowRoom selectShowRoomGUI = new GUISelectShowRoom(ticket);

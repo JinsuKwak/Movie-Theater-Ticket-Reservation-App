@@ -151,29 +151,46 @@ public class GUILogin extends JFrame {
 		JButton btnNewButton = new JButton("Confirm");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+					loginInstance.resetLoginStatus();
 					username = username.trim();
 					password = password.trim();
-					login = new Login(username, password);
-					System.out.println(username);
-					System.out.println(password);
-					login.validate();
-					if(loginInstance.getIsLoggedIn()){
-						if(loginInstance.getIsAdmin()){
-							showMessageDialog(null, "Logged In Successfuly as Admin: "+
-							loginInstance.getUser().getUserFname()+" "+loginInstance.getUser().getUserLname());
-							//TODO ADMIN FEATRUE
-			
+					if(username.contains("@")){
+						login = new Login(username, password);
+						System.out.println(username);
+						System.out.println(password);
+						login.validate();
+						if(loginInstance.getIsLoggedIn()){
+							if(loginInstance.getIsAdmin()){
+								showMessageDialog(null, "Logged In Successfuly as Admin: "+
+								loginInstance.getUser().getUserFname()+" "+loginInstance.getUser().getUserLname());
+								//TODO ADMIN FEATRUE
+				
+							} else {
+								showMessageDialog(null, "Wellcome Back: "+
+								loginInstance.getUser().getUserFname()+" "+loginInstance.getUser().getUserLname());
+								GUISelectMovie selectMovieGUI = new GUISelectMovie();
+							
+							}
 						} else {
-							showMessageDialog(null, "Wellcome Back: "+
-							loginInstance.getUser().getUserFname()+" "+loginInstance.getUser().getUserLname());
-							GUISelectMovie selectMovieGUI = new GUISelectMovie();
-						
+							showMessageDialog(null, "Wrong Credentials. Please Try again");
+							username = "";
+							password = "";
+							PasswordInput.setText("");
+							UsernameInput.setText("");
+							InputedPassword.setText(username);
+							InputedUsername.setText(password);
 						}
 					} else {
-						showMessageDialog(null, "Wrong Credentials. Please Try again");
+						showMessageDialog(null, "E-mail Addresss must contain '@'");
 						username = "";
 						password = "";
+						PasswordInput.setText("");
+						UsernameInput.setText("");
+						InputedPassword.setText(username);
+						InputedUsername.setText(password);
 					}
+					username = "";
+					password = "";
 					PasswordInput.setText("");
 					UsernameInput.setText("");
 					InputedPassword.setText(username);
