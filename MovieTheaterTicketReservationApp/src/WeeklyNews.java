@@ -66,28 +66,28 @@ public class WeeklyNews implements Subject {
             @Override
             public void run() {
                 try {
-                    Date todaysDate = new Date();
-                    java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());
-                    String sql = "SELECT * FROM Movie WHERE openinfDate > ?";
+                    initializeConnection();
+                    String sql = "SELECT * FROM User";
                     PreparedStatement p = dbConnect.prepareStatement(sql);
-                    p.setDate(1, sqlDate);
                     ResultSet result = p.executeQuery();
-
-                    while (result.next()) {
-                        Movie movie = new Movie(
-                                result.getInt("movieID"),
-                                result.getString("movieName"),
-                                result.getDate("openingDate"),
-                                result.getDouble("moviePrice"),
-                                result.getInt("theatreID"));
-                        movies.add(movie);
+                    while(result.next()) {
+                        RegisteredUser user = new RegisteredUser(
+                            result.getString("email"),
+                            result.getString("password"),
+                            result.getString("userFname"),
+                            result.getString("userLname"),
+                            Boolean.parseBoolean(result.getString("isAdmin")),
+                            result.getString("cardNumber")
+                        );
+                        Recipient recipient = new Recipient(user);
+                        registerObserver(recipient);
                     }
-                    notifyAllObservers();
-                    disconnectConnection();
+
+
+                    populateMoviesarray();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         };
         timer.scheduleAtFixedRate(task, new Date(), TimeUnit.DAYS.toMillis(7));
@@ -109,5 +109,26 @@ public class WeeklyNews implements Subject {
         for (Observer observer : observers) {
             observer.update(movies);
         }
+    }
+
+    private void populateMoviesarray() throws SQLException {
+        Date todaysDate = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());
+        String sql = "SELECT * FROM Movie WHERE openinfDate > ?";
+        PreparedStatement p = dbConnect.prepareStatement(sql);
+        p.setDate(1, sqlDate);
+        ResultSet result = p.executeQuery();
+
+        while (result.next()) {
+            Movie movie = new Movie(
+                    result.getInt("movieID"),
+                    result.getString("movieName"),
+                    result.getDate("openingDate"),
+                    result.getDouble("moviePrice"),
+                    result.getInt("theatreID"));
+            movies.add(movie);
+        }
+        notifyAllObservers();
+        disconnectConnection();
     }
 }

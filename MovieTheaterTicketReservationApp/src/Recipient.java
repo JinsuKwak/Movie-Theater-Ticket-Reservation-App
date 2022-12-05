@@ -1,11 +1,10 @@
 import java.util.ArrayList;
+//change name from movienews to recipient
+public class Recipient implements Observer{
+    User user;
 
-public class MovieNews implements Observer{
-    WeeklyNews weeklyNews;
-
-
-    public MovieNews(WeeklyNews weeklyNews) {
-        this.weeklyNews = weeklyNews;
+    public Recipient(User user) {
+        this.user = user;
     }
 
 
