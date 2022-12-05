@@ -3,10 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GUISelectMovie {
-	private Ticket ticket = new Ticket();
-	//Load movie summary
-	private LoadMovie loadMovie;
+public class GUISelectShowRoom {
+	private Ticket ticket;
+
     // frame for the main window
     private JFrame frame;
     // panel for the main window
@@ -15,30 +14,26 @@ public class GUISelectMovie {
     // button titles
 
     // constructor to initialize GUI
-    public GUISelectMovie() {
+    public GUISelectShowRoom(Ticket ticket) {
     	//initializes the movie list
-        loadMovie = new LoadMovie();
-    	ArrayList<Movie> movieSummaries = loadMovie.loadMovieSummaries();  	
+        ArrayList<ShowRoom> showRooms = ticket.getTheater().getShowRooms();  	
         // initialize frame
         frame = new JFrame("Select Movie");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(500, 800);
+        frame.setSize(500, 300);
         frame.setLocationRelativeTo(null);
 
         // initialize main panel
-        mainPanel = new JPanel(new GridLayout(0, 1, 0, 4));
+        mainPanel = new JPanel(new GridLayout(2, 5, 10, 10));
         mainPanel.setBackground(new Color(49, 59, 114));
         // add buttons to the main panel
-        for (Movie movieSummary : movieSummaries) {
-            JButton button = new JButton(movieSummary.getMovieName());
+        for (ShowRoom showRoom : showRooms) {
+            JButton button = new JButton(((Integer)showRoom.getShowtRoomID()).toString());
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // create new JFrame when button is clicked
-                    Theater theater = loadMovie.selectMovie(movieSummary.getMovieID());
-                    Movie movie = movieSummary;
-                    ticket.setTheater(theater);
-                    ticket.setMovie(movieSummary);
-                    GUISelectShowRoom selectShowRoomGUI = new GUISelectShowRoom(ticket);
+                    ticket.setShowRoom(showRoom);
+                    // GUISelectTheater selectTheaterGUI = new GUISelectTheater(ticket);
                 }
             });
             mainPanel.add(button);
