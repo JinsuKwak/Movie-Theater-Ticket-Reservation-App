@@ -1,17 +1,22 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class GUIPayment extends JFrame {
-
+	Ticket ticket;
+	ArrayList<Seat> ticketSeats;
+	double totalPrice;
+	LoginInstance loginInstance = LoginInstance.getInstance();
 	// Create components
 	JLabel emailLabel, phoneLabel, cardNumberLabel, expirationLabel;
 	JTextField emailText, phoneText, cardNumberText, expirationText;
 	JButton payButton, confirmButton;
 	String email, phone, cardNumber, expiration;
 
-	public GUIPayment() {
+	public GUIPayment(Ticket ticket, ArrayList<Seat> ticketSeats) {
 		// Set frame title
 		super("Credit Card Payment");
 
@@ -46,6 +51,19 @@ public class GUIPayment extends JFrame {
 		//payButton = new JButton("Pay Now");
 		//add(payButton);
 
+		this.ticket = ticket;
+		this.ticketSeats = ticketSeats;
+		totalPrice = ticket.getMovie().getMoviePrice()*ticketSeats.size();
+		System.out.println("Per Seats: "+ticket.getMovie().getMoviePrice());
+		System.out.println("Total Price: "+totalPrice);
+		for(Seat seat: ticketSeats){
+			System.out.println(seat.getSeatNum());
+		}
+		if(loginInstance.getIsLoggedIn()){
+			emailText.setText(loginInstance.getUser().getUserEmail());
+			cardNumberText.setText(loginInstance.getUser().getcardNumber());
+		}
+
 		confirmButton = new JButton("Confirm");
 		add(confirmButton);
 		confirmButton.addActionListener(new ActionListener() {
@@ -54,16 +72,18 @@ public class GUIPayment extends JFrame {
 				phone = phoneText.getText();
 				cardNumber = cardNumberText.getText();
 				expiration = expirationText.getText();
+				email = email.trim();
+				ticket.setUserEmail(email);
+				Payment payment = new Payment(ticket,ticketSeats);
+				payment.createTickets();
+				payment.updateSeat();
+				//payment.sendEmail(); TODO mock emails are not valid so will cause error
 			}
 		});
 
 		// Set frame size and make visible
 		pack();
 		setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new GUIPayment();
 	}
 
 }

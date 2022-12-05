@@ -1,29 +1,29 @@
 import java.util.Date;
 
-public class SelectSeat {
+public class SelectSeatFCF {
     LoginInstance loginInstance;
     Ticket ticket;
 
-    public SelectSeat(Ticket ticket){
+    public SelectSeatFCF(Ticket ticket){
         this.ticket = ticket;
         this.loginInstance = LoginInstance.getInstance();
     }
 
-    public boolean manageRU(){
+    public int possibleNumFCF(){
+        int tenPercentRU = ticket.getShowRoom().getTotalSeatNum()*10/100;
         if(loginInstance.getIsLoggedIn()){
             Date today = new Date();
             if(ticket.getMovie().getOpeningDate().getTime() >= today.getTime()){
-                int tenPercentRU = ticket.getShowRoom().getTotalSeatNum()*10/100;
                 if(ticket.getShowTime().getReservedByRU() >= tenPercentRU){
-                    return false;
+                    return 0;
                 } else {
-                    return true;
+                    return tenPercentRU - ticket.getShowTime().getReservedByRU();
                 }
             } else {
-                return true;
+                return tenPercentRU - ticket.getShowTime().getReservedByRU();
             }
         } else {
-            return true;
+            return tenPercentRU - ticket.getShowTime().getReservedByRU();
         }
     }
 }

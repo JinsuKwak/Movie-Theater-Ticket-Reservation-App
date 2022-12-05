@@ -4,13 +4,15 @@ public abstract class User {
     private String userFname;
     private String userLname;
     private boolean isAdmin;
+    private String cardNumber;
 
-    public User(String uEmail, String uPW, String uFN, String uLN, boolean isAdmin){
+    public User(String uEmail, String uPW, String uFN, String uLN, boolean isAdmin, String cardNumber){
         this.userEmail = uEmail;
         this.userPassword = uPW;
         this.userFname = uFN;
         this.userLname = uLN;
         this.isAdmin = isAdmin;
+        this.cardNumber = cardNumber;
     }
 
     public String getUserEmail(){ //also changed this static to work
@@ -27,5 +29,8 @@ public abstract class User {
     }
     public boolean getIsAdmin(){
         return this.isAdmin;
+    }
+    public String getcardNumber(){
+        return this.cardNumber;
     }
 }

@@ -16,13 +16,9 @@ import javax.swing.text.StyledEditorKit.StyledTextAction;
 public class Email {
     private static final String user = "testemail010203040506@gmail.com";
     private static final String pw = "jkjxrcrmotvgylqx";
-    public static void main(String[] args) {
-        Email.sendEmailTicketPurchased(null);
-        Email.sendEmailTicketCancelled(null);
 
-    }
 
-    public static void sendEmailTicketPurchased(Ticket purchasedTicket){
+    public static void sendEmailTicketPurchased(Ticket mainTicket,ArrayList<Ticket> purchasedTickets){
         Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "465");
@@ -36,7 +32,8 @@ public class Email {
                         return new PasswordAuthentication(user, pw);
                     }
                 });
-
+        
+        Ticket purchasedTicket = purchasedTickets.get(0);
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("testemail010203040506@gmail.com"));
