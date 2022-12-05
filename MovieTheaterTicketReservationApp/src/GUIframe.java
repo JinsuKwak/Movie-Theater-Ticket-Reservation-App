@@ -1,26 +1,30 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+
+import com.mysql.cj.log.Log;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUIframe {
-	public Boolean isloggedin = false;
-	public RegisteredUser userloggedin = new RegisteredUser(null, null, null, null, false, null);
 
-    public static void main(String[] args) {
+    public static void start() {
 
         // create a JFrame
-        JFrame frame = new JFrame("Selection Page");
+        JFrame frame = new JFrame("Start Page");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // create a JPanel
         JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
+        panel.setBackground(new Color(49, 59, 114));
+        panel.setLayout(new GridLayout(7,1,6,5));
         GridBagConstraints c = new GridBagConstraints();
 
         // create a login status label
         JLabel loginStatusLabel = new JLabel("Login status:");
-        c.fill = GridBagConstraints.HORIZONTAL;
+        loginStatusLabel.setForeground(new Color(255, 255, 255));
+        c.fill = GridBagConstraints.FIRST_LINE_START;
         c.gridx = 0;
         c.gridy = 0;
         panel.add(loginStatusLabel, c);
@@ -31,15 +35,14 @@ public class GUIframe {
         c.gridy = 0;
         loginStatusField.setEnabled(false);
         panel.add(loginStatusField, c);
-
         // create three buttons
         JButton button1 = new JButton("Login");
         button1.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GUIloginwindow login = new GUIloginwindow();				
-				login.main(args);
+				GUILogin loginWindowGUI = new GUILogin();	
+                loginWindowGUI.loginWindow();			
 			}
 		});
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -51,9 +54,7 @@ public class GUIframe {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				GUISelectTheatreShow select = new GUISelectTheatreShow();
-				
+				GUISelectMovie selectMovieGUI = new GUISelectMovie();
 			}
 		});
         c.gridx = 1;
@@ -64,10 +65,7 @@ public class GUIframe {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				GUICancelMovie cancel = new GUICancelMovie();
-				cancel.main(args);
-				
+				GUICancelTicket cancelTicektGUI = new GUICancelTicket();
 				
 			}
 		});
@@ -81,11 +79,7 @@ public class GUIframe {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				GUICancelMovie cancel = new GUICancelMovie();
-				cancel.main(args);
-				
-				
+				GUICancelTicket registerUserGUI = new GUICancelTicket();
 			}
 		});
         c.gridx = 3;
@@ -97,6 +91,7 @@ public class GUIframe {
 
         // set size of JFrame and make it visible
         frame.setSize(600, 400);
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 }

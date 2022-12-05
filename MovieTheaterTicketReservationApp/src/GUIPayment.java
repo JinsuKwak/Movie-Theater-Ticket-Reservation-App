@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIPaymentpage extends JFrame {
+public class GUIPayment extends JFrame {
 
 	// Create components
 	JLabel emailLabel, phoneLabel, cardNumberLabel, expirationLabel;
@@ -11,7 +11,7 @@ public class GUIPaymentpage extends JFrame {
 	JButton payButton, confirmButton;
 	String email, phone, cardNumber, expiration;
 
-	public GUIPaymentpage() {
+	public GUIPayment() {
 		// Set frame title
 		super("Credit Card Payment");
 
@@ -63,7 +63,7 @@ public class GUIPaymentpage extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new GUIPaymentpage();
+		new GUIPayment();
 	}
 
 }
