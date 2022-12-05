@@ -23,7 +23,7 @@ public class GUISelectTheatreShow {
     // constructor to initialize GUI
     public GUISelectTheatreShow() {
     	//initializes the movie list
-    	loadedmoviesum.loadMovies();  	
+    	loadedmoviesum.loadMovieSummaries();  	
         // initialize frame
         frame = new JFrame("GUI");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -41,11 +41,11 @@ public class GUISelectTheatreShow {
                     // create new JFrame when button is clicked
                 	
                 	//Finds the showroom for the movie
-                	for(int i = 0; i < loadedmoviesum.getmoviesummary().size(); i++)
+                	for(int i = 0; i < loadedmoviesum.loadMovieSummaries().size(); i++)
                 	{
-                		if(loadedmoviesum.getmoviesummary().get(i).getMovieName().matches(button.getText()))
+                		if(loadedmoviesum.loadMovieSummaries().get(i).getMovieName().matches(button.getText()))
                 		{
-                			showtheatre = loadedmoviesum.selectMovie(loadedmoviesum.getmoviesummary().get(i).getMovieID());
+                			showtheatre = loadedmoviesum.selectMovie(loadedmoviesum.loadMovieSummaries().get(i).getMovieID());
                 		}
                 	}
                 	
