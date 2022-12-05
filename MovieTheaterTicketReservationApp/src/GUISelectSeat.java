@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.*;
 
-public class GUIselectTheatreSeats extends JFrame {
+public class GUISelectSeat extends JFrame {
     private JPanel mainPanel;
     private JPanel seatPanel;
     private JButton confirmButton;
@@ -13,7 +13,7 @@ public class GUIselectTheatreSeats extends JFrame {
     private int numSeats;
     static ShowTime showtime;
 
-    public GUIselectTheatreSeats(ShowTime incomingshowtime) {
+    public GUISelectSeat(ShowTime incomingshowtime) {
         super("Theatre Seats Selection");
         this.showtime = incomingshowtime;
         this.numSeats = incomingshowtime.getAllSeats().size();
@@ -104,12 +104,12 @@ public class GUIselectTheatreSeats extends JFrame {
             }
             
             
-            GUIPaymentpage pay = new GUIPaymentpage();
+            GUIPayment pay = new GUIPayment();
         }
     }
 
     public static void main(String[] args) {
     	 
-        new GUIselectTheatreSeats(showtime);
+        new GUISelectSeat(showtime);
     }
 }
