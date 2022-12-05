@@ -24,7 +24,7 @@ public class Login extends SQLController {
     public boolean validate(){
         try{
             initializeConnection();
-            String query = "SELECT * From Users WHERE email = ? AND password = ?";
+            String query = "SELECT * From User WHERE email = ? AND password = ?";
             PreparedStatement pStatement = dbConnection.prepareStatement(query);
             pStatement.setString(1, enteredUserEmail);
             pStatement.setString(2, enteredUserPW);

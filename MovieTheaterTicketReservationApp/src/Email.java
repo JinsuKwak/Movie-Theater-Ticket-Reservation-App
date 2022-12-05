@@ -104,11 +104,12 @@ public class Email {
     
     }
 
-    public static void sendSubscription(ArrayList<User> recipients){
-
+    public static void sendSubscription(String userFname, String userLname, int amount){
+        System.out.println("USER SUBSCRIPTION");
     }
 
     public static void sendMovieNews(String movieName, double moviePrice, String movieDate, ArrayList<User> recipients) {
+        System.out.println("USER MOVIE NEWS");
     }
 
 }

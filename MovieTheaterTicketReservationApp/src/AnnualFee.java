@@ -35,7 +35,7 @@ public class AnnualFee {
 
     private void processPayment() {
         for(User user : allRegisteredUsers) {
-            Email.sendSubscription(username, amount);
+            Email.sendSubscription(user.getUserFname(), user.getUserLname(),ANNUAL_FEE);
         }
     }
 

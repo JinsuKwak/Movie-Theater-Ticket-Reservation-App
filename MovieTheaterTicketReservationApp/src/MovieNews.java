@@ -11,7 +11,7 @@ public class MovieNews implements Observer{
 
     @Override
     public void update(ArrayList<Movie> movies) {
-        ArrayList<User> recipients; //sql statement to get the registered users
+        ArrayList<User> recipients = new ArrayList<User>(); //sql statement to get the registered users
         for(Movie movie : movies) {
             Email.sendMovieNews(movie.getMovieName(), movie.getMoviePrice(), movie.getOpeningDate().toString(), recipients);
         }
