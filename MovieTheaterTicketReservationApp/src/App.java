@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import java.util.ArrayList;
 
-=======
->>>>>>> 006ed66d007b9bd76c396d61ec81e10ee0680b45
 public class App 
 {
     public static void main(String[] args) throws Exception 

@@ -11,7 +11,7 @@ public class ManageUser
     private final String DBURL = "jdbc:mysql://localhost/movie_theatres";
     private final String USERNAME = "ensf480";
     private final String PASSWORD = "ensf480";
-    private final String TABLE_NAME = "Users";
+    private final String TABLE_NAME = "User";
     private Connection dbConnect;
     private ResultSet results;
 
