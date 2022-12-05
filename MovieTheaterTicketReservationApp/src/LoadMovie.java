@@ -18,7 +18,7 @@ public class LoadMovie extends SQLController {
         movieSummaries = new ArrayList<MovieSummary>();
     }
     
-    public ArrayList<MovieSummary> loadMovies(){
+    public ArrayList<MovieSummary> loadMovieSummaries(){
         try{
 
             initializeConnection();
@@ -82,14 +82,12 @@ public class LoadMovie extends SQLController {
             pStatementThr.setInt(1, theaterID);
             ResultSet resultThr = pStatementThr.executeQuery();
 
-            result.close();
-            pStatement.close();
 
             while (resultThr.next()){
                 String querySR = "SELECT * FROM ShowRoom WHERE theatreID = ? AND movieID = ?";
                 PreparedStatement pStatementSR = dbConnection.prepareStatement(querySR);
                 pStatementSR.setInt(1, resultThr.getInt("theatreID"));
-                pStatementSR.setInt(2, result.getInt("movieID"));
+                pStatementSR.setInt(2,movieID);
                 ResultSet resultSR = pStatementSR.executeQuery();
 
                 ArrayList<ShowRoom> showRooms = new ArrayList<ShowRoom>();
@@ -160,43 +158,6 @@ public class LoadMovie extends SQLController {
         }
         return selectedTheater;
     }
-    public ArrayList<MovieSummary> getmoviesummary()
-    {
-		return movieSummaries;
-    	
-    }
 }
 
 
-
-
-
-class MovieSummary {
-    private int movieID;
-    private String movieName;
-    private java.util.Date openingDate;
-    private double moviePrice;
-
-    public MovieSummary(int movieID, String movieName, java.util.Date openingDate, double moviePrice){
-        this.movieID = movieID;
-        this.movieName = movieName;
-        this.openingDate = openingDate;
-        this.moviePrice = moviePrice;
-    }
-
-    public int getMovieID(){
-        return this.movieID;
-    }
-
-    public String getMovieName(){
-        return this.movieName;
-    }
-
-    public double getMoviePrice(){
-        return this.moviePrice;
-    }
-
-    public java.util.Date getDate() {
-        return this.openingDate;
-    }
-}
