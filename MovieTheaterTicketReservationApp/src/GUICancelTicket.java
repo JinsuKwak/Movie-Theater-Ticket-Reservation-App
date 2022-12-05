@@ -2,7 +2,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class GUICancelMovie {
+public class GUICancelTicket {
 
     public static void main(String[] args) {
 

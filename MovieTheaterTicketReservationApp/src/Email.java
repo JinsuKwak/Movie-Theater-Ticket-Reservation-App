@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -16,13 +17,9 @@ import javax.swing.text.StyledEditorKit.StyledTextAction;
 public class Email {
     private static final String user = "testemail010203040506@gmail.com";
     private static final String pw = "jkjxrcrmotvgylqx";
-    public static void main(String[] args) {
-        Email.sendEmailTicketPurchased(null);
-        Email.sendEmailTicketCancelled(null);
 
-    }
 
-    public static void sendEmailTicketPurchased(Ticket purchasedTicket){
+    public static void sendEmailTicketPurchased(Ticket mainTicket,ArrayList<Ticket> purchasedTickets){
         Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "465");
@@ -36,25 +33,40 @@ public class Email {
                         return new PasswordAuthentication(user, pw);
                     }
                 });
-
+    
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("testemail010203040506@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse(purchasedTicket.getUserEmail())
+                    InternetAddress.parse(mainTicket.getUserEmail())
             );
+            String ticketIDandSeatNum = new String();
+            for(Ticket ticket: purchasedTickets){
+                ticketIDandSeatNum+="Ticket ID: "+ticket.getTicketID()+"\n"+
+                "Seat Number: "+ticket.getSeatNum()+"\n";
+            }
+            Formatter fmt1 = new Formatter();
+            Formatter fmt2 = new Formatter();
+            double moviePrice = mainTicket.getMovie().getMoviePrice();
+            fmt1.format("%.2f",moviePrice);
+            Double totalPrice = moviePrice*purchasedTickets.size();
+            fmt2.format("%.2f",totalPrice);
+           
             message.setSubject("Your Movie Ticket");
             message.setText("Thanks for Purchased Movie Ticket\n"+
-            "Movie Name: "+purchasedTicket.getMovie().getMovieName()+"\n"+
-            "Movie Price: $"+purchasedTicket.getMovie().getMoviePrice()+"\n"+
-            "Theater: "+purchasedTicket.getTheater().getTheaterName()+"\n"+
-            "Address: "+purchasedTicket.getTheater().getTheaterLocation()+"\n"+
-            "Show Room: "+purchasedTicket.getShowRoomID()+"\n"+
-            "At: "+purchasedTicket.getShowTime().getShownAt()+"\n"+
-            "Seat Number: "+purchasedTicket.getSeatNum());
+            "Movie Name: "+mainTicket.getMovie().getMovieName()+"\n"+
+            "Movie Price: $"+fmt1+"\n"+
+            "Total Price: $"+fmt2+"\n"+
+            "Theater: "+mainTicket.getTheater().getTheaterName()+"\n"+
+            "Address: "+mainTicket.getTheater().getTheaterLocation()+"\n"+
+            "Show Room: "+mainTicket.getShowRoomID()+"\n"+
+            "At: "+mainTicket.getShowTime().getShownAt()+"\n"+
+            ticketIDandSeatNum);
             Transport.send(message);
 
+            fmt1.close();
+            fmt2.close();
         } catch (MessagingException e) {
             e.printStackTrace();
         }

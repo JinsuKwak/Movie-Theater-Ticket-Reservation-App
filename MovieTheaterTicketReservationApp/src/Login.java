@@ -43,7 +43,8 @@ public class Login extends SQLController {
                         result.getString("password"),
                         result.getString("userFname"),
                         result.getString("userLname"),
-                        isAdmin
+                        isAdmin,
+                        result.getString("cardNumber")
                     );
                 } else {
                     isAdmin = false;

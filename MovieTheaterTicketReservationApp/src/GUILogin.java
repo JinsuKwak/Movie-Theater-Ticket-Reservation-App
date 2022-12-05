@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -17,29 +18,47 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GUIloginwindow extends JFrame {
+public class GUILogin extends JFrame {
 
 	private JPanel contentPane;
 	private final JTextField UsernameInput = new JTextField();
 	private final JTextPane txtpnInputUsername = new JTextPane();
 	private final JTextPane txtpnInputPassword = new JTextPane();
 	private final JTextField PasswordInput = new JTextField();
-	String username = "";
-	String tempusername = "";
-	String password = "";
-	String temppassword = "";
-	Login log  = new Login(null, null);
+	private LoginInstance loginInstance = LoginInstance.getInstance();
+	private String username = "";
+	private String tempusername = "";
+	private String password = "";
+	private String temppassword = "";
+	private Login login;
 	private JTextField InputedUsername;
 	private JTextField InputedPassword;
+	private GUILogin frame;
 
+	public static void main(String[] args) {
+				EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUILogin frame = new GUILogin();
+					frame.setResizable(false);
+					frame.setVisible(true);
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void loginWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIloginwindow frame = new GUIloginwindow();
+					frame = new GUILogin();
+					frame.setResizable(false);
 					frame.setVisible(true);
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -53,7 +72,7 @@ public class GUIloginwindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUIloginwindow() {
+	public GUILogin() {
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -78,7 +97,7 @@ public class GUIloginwindow extends JFrame {
 				}
 			}
 		});
-		UsernameInput.setBounds(36, 66, 65, 20);
+		UsernameInput.setBounds(36, 66, 160, 20);
 		UsernameInput.setColumns(10);
 		initGUI();
 	}
@@ -89,22 +108,22 @@ public class GUIloginwindow extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(192, 192, 192));
-		
-				setContentPane(contentPane);
+		contentPane.setBackground(new Color(49, 59, 114));
+		setContentPane(contentPane);
 		contentPane.setLayout(null); 
-		
 		contentPane.add(UsernameInput);
-		txtpnInputUsername.setBackground(new Color(192, 192, 192));
+		txtpnInputUsername.setBackground(new Color(49, 59, 114));
 		txtpnInputUsername.setEditable(false);
+		txtpnInputUsername.setForeground(new Color(255, 255, 255));
 		txtpnInputUsername.setText("Input Username");
-		txtpnInputUsername.setBounds(26, 35, 106, 20);
+		txtpnInputUsername.setBounds(40, 46, 106, 20);
 		
 		contentPane.add(txtpnInputUsername);
-		txtpnInputPassword.setBackground(new Color(192, 192, 192));
+		txtpnInputPassword.setBackground(new Color(49, 59, 114));
 		txtpnInputPassword.setText("Input Password");
+		txtpnInputPassword.setForeground(new Color(255, 255, 255));
 		txtpnInputPassword.setEditable(false);
-		txtpnInputPassword.setBounds(26, 97, 106, 20);
+		txtpnInputPassword.setBounds(40, 97, 106, 20);
 		
 		contentPane.add(txtpnInputPassword);
 		PasswordInput.addKeyListener(new KeyAdapter() {
@@ -125,36 +144,56 @@ public class GUIloginwindow extends JFrame {
 			}
 		});
 		PasswordInput.setColumns(10);
-		PasswordInput.setBounds(36, 117, 65, 20);
+		PasswordInput.setBounds(36, 117, 160, 20);
 		
 		contentPane.add(PasswordInput);
 		
 		JButton btnNewButton = new JButton("Confirm");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					log = new Login(username, password);
-					System.out.print("printed");
+					username = username.trim();
+					password = password.trim();
+					login = new Login(username, password);
+					System.out.println(username);
+					System.out.println(password);
+					login.validate();
+					if(loginInstance.getIsLoggedIn()){
+						if(loginInstance.getIsAdmin()){
+							showMessageDialog(null, "Logged In Successfuly as Admin: "+
+							loginInstance.getUser().getUserFname()+" "+loginInstance.getUser().getUserLname());
+							//TODO ADMIN FEATRUE
+			
+						} else {
+							showMessageDialog(null, "Wellcome Back: "+
+							loginInstance.getUser().getUserFname()+" "+loginInstance.getUser().getUserLname());
+							GUISelectMovie selectMovieGUI = new GUISelectMovie();
+						
+						}
+					} else {
+						showMessageDialog(null, "Wrong Credentials. Please Try again");
+						username = "";
+						password = "";
+					}
 					PasswordInput.setText("");
 					UsernameInput.setText("");
 					InputedPassword.setText(username);
 					InputedUsername.setText(password);
 			}
 		});
-		btnNewButton.setBounds(160, 168, 96, 23);
+		btnNewButton.setBounds(170, 180, 96, 23);
 		contentPane.add(btnNewButton);
 		
 		InputedUsername = new JTextField();
 		InputedUsername.setEditable(false);
-		InputedUsername.setBounds(160, 66, 96, 20);
+		InputedUsername.setBounds(310, 66, 96, 20);
 		contentPane.add(InputedUsername);
 		InputedUsername.setColumns(10);
 		
 		InputedPassword = new JTextField();
 		InputedPassword.setEditable(false);
-		InputedPassword.setBounds(160, 117, 96, 20);
+		InputedPassword.setBounds(310, 117, 96, 20);
 		contentPane.add(InputedPassword);
 		InputedPassword.setColumns(10);
-		
 		
 		
 		

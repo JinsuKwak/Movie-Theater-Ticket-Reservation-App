@@ -10,15 +10,15 @@ import java.sql.SQLException;
 public class LoadMovie extends SQLController {
     private LoginInstance loginInstance;
     private Theater selectedTheater;
-    private ArrayList<MovieSummary> movieSummaries;
+    private ArrayList<Movie> movies;
 
     public LoadMovie(){
         super("jdbc:mysql://localhost/movie_theatres", "ensf480", "ensf480");
         this.loginInstance = LoginInstance.getInstance();
-        movieSummaries = new ArrayList<MovieSummary>();
+        movies = new ArrayList<Movie>();
     }
     
-    public ArrayList<MovieSummary> loadMovieSummaries(){
+    public ArrayList<Movie> loadMovieSummaries(){
         try{
 
             initializeConnection();
@@ -26,7 +26,7 @@ public class LoadMovie extends SQLController {
             if(loginInstance.getIsLoggedIn()){
                 query = "SELECT * FROM Movie";
             } else {
-                query = "SELECT * FROM Movie WHERE ";
+                query = "SELECT * FROM Movie";  //TODO for OU
             }
             PreparedStatement pStatement = dbConnection.prepareStatement(query);
             ResultSet result = pStatement.executeQuery();
@@ -38,20 +38,21 @@ public class LoadMovie extends SQLController {
             while (result.next()){
                 java.sql.Date sqlDate = result.getDate("openingDate");
                 java.util.Date openingDate = new java.util.Date(sqlDate.getTime());
-                MovieSummary summary = new MovieSummary(
+                Movie summary = new Movie(
                     result.getInt("movieID"),
                     result.getString("movieName"),
                     openingDate,
-                    result.getFloat("moviePrice")
+                    result.getFloat("moviePrice"),
+                    result.getInt("theatreID")
                 );
-                movieSummaries.add(summary);
+                movies.add(summary);
             }
             disconnectConnection();
 
         } catch (SQLException e){
             e.printStackTrace();
         }
-        return movieSummaries;
+        return movies;
     }
 
 
