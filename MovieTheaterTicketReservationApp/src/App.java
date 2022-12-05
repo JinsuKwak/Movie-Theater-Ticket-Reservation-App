@@ -1,7 +1,12 @@
+<<<<<<< HEAD
+public class App 
+{
+=======
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class App {
+>>>>>>> 8f1a9aa3c98b0a703a58b828783d2ec23920ba34
     public static void main(String[] args) throws Exception 
     {
         GUIframe.start();
