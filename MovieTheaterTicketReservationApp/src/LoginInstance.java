@@ -10,7 +10,7 @@ public class LoginInstance {
     private LoginInstance(){
        this.isAdmin = false;
        this.isLoggedIn = false;
-       this.logInTime = new Date();         // at miliseconds
+       this.logInTime = new Date();      
     }
 
     public void setInstance(LoginInstance loginInstance){
@@ -44,6 +44,12 @@ public class LoginInstance {
 
     public Date getLogInTime(){
         return this.logInTime;
+    }
+
+    public void resetLoginStatus(){
+        this.isLoggedIn = false;
+        this.isAdmin = false;
+        this.user = null;
     }
 
 }
