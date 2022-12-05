@@ -77,7 +77,7 @@ public class GUIPayment extends JFrame {
 				Payment payment = new Payment(ticket,ticketSeats);
 				payment.createTickets();
 				payment.updateSeat();
-				//payment.sendEmail(); TODO mock emails are not valid so will cause error
+				payment.sendEmail(); 
 			}
 		});
 
