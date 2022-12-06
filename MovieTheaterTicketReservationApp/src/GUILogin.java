@@ -35,21 +35,6 @@ public class GUILogin extends JFrame {
 	private JTextField InputedPassword;
 	private GUILogin frame;
 
-	public static void main(String[] args) {
-				EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUILogin frame = new GUILogin();
-					frame.setResizable(false);
-					frame.setVisible(true);
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	/**
 	 * Launch the application.
 	 */
