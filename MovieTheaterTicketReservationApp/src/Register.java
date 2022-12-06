@@ -9,6 +9,15 @@ public class Register extends SQLController {
     String userCardNum = new String("");
     boolean isStaff = false;
 
+
+    /**
+     * Register constructor
+     * @param uEmail - user's Email
+     * @param uPW - user's Password
+     * @param uFN - user's first name
+     * @param uLN - user's last name
+     * @param uCardNum - user's card number
+     */
     public Register(String uEmail, String uPW, String uFN, String uLN, String uCardNum) {
         super("jdbc:mysql://localhost/movie_theatres", "ensf480", "ensf480");
         this.userEmail = uEmail;
@@ -18,6 +27,11 @@ public class Register extends SQLController {
         this.userCardNum = uCardNum;
     }
 
+    /**
+     *  checks if the email provided by the user if already in the database
+     * @return {boolean} - returns true if the email is not the database,
+     * false otherwise
+     */
     public boolean isUniqueEmail() {
         initializeConnection();
         try {
@@ -39,10 +53,16 @@ public class Register extends SQLController {
         } 
     }
 
+    /**
+     * set user as admin
+     */
     public void setToStaff() {
         this.isStaff = true;
     }
 
+    /**
+     * add user to the database
+     */
     public void registerUser() {
         initializeConnection();
         String staff = isStaff ? "true" : "false";

@@ -15,6 +15,11 @@ public class AnnualFee {
     private final String PASSWORD = "ensf480";
     private Connection dbConnect;
 
+    /**
+     * send an annual Email to registered users about the annual fee
+     * @param fee - fee annual fee to be paid by registered users
+     * @param date - date to send the first email 
+     */
     public void startAnnualFee(int fee, Date date) {
         AnnualFee.ANNUAL_FEE = fee;
         Timer timer = new Timer();
@@ -53,8 +58,13 @@ public class AnnualFee {
         timer.scheduleAtFixedRate(task, date, duration);
     }
 
+    /**
+     * a helper method to convert years to milli-seonds
+     * @param year - the number of years to convert to milliseconds
+     * @return - returns a long that represents the year in milliseconds
+     */
     private long yearsToMillisSeconds(int year) {
-        long convertion = 31536000000L;
-        return year * convertion;
+        final long CONVERSION = 31536000000L; //1 year = 315360...L milliseconds
+        return year * CONVERSION;
     }
 }

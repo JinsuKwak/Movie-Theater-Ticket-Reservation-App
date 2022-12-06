@@ -1,4 +1,3 @@
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,9 +15,7 @@ public class WeeklyNews implements Subject {
     private final String DBURL = "jdbc:mysql://localhost/movie_theatres";
     private final String USERNAME = "ensf480";
     private final String PASSWORD = "ensf480";
-    private final String TABLE_NAME = "Movie";
     private Connection dbConnect;
-    private ResultSet results;
 
     public WeeklyNews() {
         initializeDriver();
@@ -59,6 +56,11 @@ public class WeeklyNews implements Subject {
         }
     }
 
+    /**
+     * gets all registered users from the database that are not admins and adds
+     * them to a recipients array, to distribute the weekly news to the recipients
+     * in the array
+     */
     public void distributeNews() {
         initializeConnection();
         Timer timer = new Timer();
@@ -91,17 +93,26 @@ public class WeeklyNews implements Subject {
         timer.scheduleAtFixedRate(task, new Date(), TimeUnit.DAYS.toMillis(7));
     }
 
+    /**
+     * add observers to the observer array
+     */
     @Override
     public void registerObserver(Observer o) {
         observers.add(o);
     }
 
+    /**
+     * remove an observer from the observer array
+     */
     @Override
     public void removeObserver(Observer o) {
         observers.remove(o);
 
     }
 
+    /**
+     * update all observers registered in the observer array
+     */
     @Override
     public void notifyAllObservers() {
         for (Observer observer : observers) {
@@ -109,6 +120,10 @@ public class WeeklyNews implements Subject {
         }
     }
 
+    /**
+     * add all the movies that have not been released to the movies array
+     * @throws SQLException
+     */
     private void populateMoviesarray() throws SQLException {
         Date todaysDate = new Date();
         java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());
