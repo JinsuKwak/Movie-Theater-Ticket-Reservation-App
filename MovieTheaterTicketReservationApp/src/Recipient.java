@@ -9,7 +9,6 @@ public class Recipient implements Observer{
         this.user = user;
     }
 
-
     @Override
     public void update(ArrayList<Movie> movies) {
         ArrayList<User> recipients = new ArrayList<User>(); //sql statement to get the registered users

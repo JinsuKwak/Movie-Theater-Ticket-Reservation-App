@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.sql.*;
 
 public class WeeklyNews implements Subject {
-    private ArrayList<Observer> observers;
-    private ArrayList<Movie> movies;
+    private ArrayList<Observer> observers = new ArrayList<Observer> ();
+    private ArrayList<Movie> movies = new ArrayList<Movie>();
     private final String DBURL = "jdbc:mysql://localhost/movie_theatres";
     private final String USERNAME = "ensf480";
     private final String PASSWORD = "ensf480";
@@ -112,7 +112,7 @@ public class WeeklyNews implements Subject {
     private void populateMoviesarray() throws SQLException {
         Date todaysDate = new Date();
         java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());
-        String sql = "SELECT * FROM Movie WHERE openinfDate > ?";
+        String sql = "SELECT * FROM Movie WHERE openingDate > ?";
         PreparedStatement p = dbConnect.prepareStatement(sql);
         p.setDate(1, sqlDate);
         ResultSet result = p.executeQuery();

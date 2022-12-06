@@ -5,10 +5,13 @@ public class App
 {
     public static void main(String[] args) throws Exception 
     {
+        WeeklyNews weeklyNews = new WeeklyNews();
+        weeklyNews.distributeNews();
         AnnualFee annualFee = new AnnualFee();
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         annualFee.startAnnualFee(20, sqlDate);
+
 
         GUIframe.start();
     }
