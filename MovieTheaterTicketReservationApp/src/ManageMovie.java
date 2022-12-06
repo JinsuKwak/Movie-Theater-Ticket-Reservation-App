@@ -16,17 +16,15 @@ public class ManageMovie  extends SQLController
         super("jdbc:mysql://localhost/movie_theatres","ensf480","ensf480");
         this.loginInstance = LoginInstance.getInstance();
         initializeDriver();
-        initializeConnection();
     }
 
 
     public void addMovie(int mvID, String mvName, String openDate, double moviePrice, int theID, int showRoomID, int showTimeID, String shownAt)
     {
         //to insert into movie
+        initializeConnection();
         try{
-            String query = "INSERT INTO Movie (movieID, movieName, openingDate, moviePrice,theatreID) VALUES (?,?,?,?,?)"; //for inserting into 
-            // String query = "INSERT INTO cats (name, owner, birth) VALUES (?,?,?)";
-            //PreparedStatement myStmt = dbConnect.prepareStatement(query);
+            String query = "INSERT INTO Movie (movieID, movieName, openingDate, moviePrice,theatreID) VALUES (?,?,?,?,?)";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
             
             myStmt.setLong(1, mvID);
@@ -84,35 +82,28 @@ public class ManageMovie  extends SQLController
         // showroom
         // generate showTime with assigned time and
         // generate seats and reset to all avaliable based on showroom.totalSeatNum
+        disconnectConnection();
     }
 
     public void removeMovie(int movieID)
     {
+        initializeConnection();
         this.deleteMovieID = movieID;
         if(loginInstance.getIsAdmin())// only executable when already logged as admin
         {  
-            // if(Movie.getMovieID() == movieID)
-            // {
                 try{
                     String query = "DELETE FROM movie_theatres WHERE movieID = " + movieID;
 
                     PreparedStatement preparedStatement = dbConnect.prepareStatement(query);
                     preparedStatement.executeUpdate(query);
                     preparedStatement.close();
-
-                    /*
-                     * Statement statement = dbConnect.createStatement ();
-                        statement.executeUpdate ("DELETE FROM AVAILABLE_FOOD WHERE Name = '" + foodName + "'" + " LIMIT 1");
-                        initialAvailableFoodsList.remove (foodName);
-                     */
                 }
                 catch(SQLException e){
                     e.printStackTrace();
                 }
         }
-            //SQL
-            // delete if Movie.movieID == deletedMovieID 
-        // }        // NO NEED THIS PART
+        disconnectConnection();
+
     }
 
     public String getTableName() {

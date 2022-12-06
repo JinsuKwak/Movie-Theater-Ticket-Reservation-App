@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Properties;
@@ -72,7 +73,7 @@ public class Email {
         }
     }
 
-    public static void  sendEmailTicketCancelled(Ticket cancelledTicekt) {
+    public static void  sendEmailTicketCancelled(Ticket cancelledTicekt, String movieName, double moviePrice) {
         Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "465");
@@ -94,22 +95,26 @@ public class Email {
                     Message.RecipientType.TO,
                     InternetAddress.parse(cancelledTicekt.getUserEmail())
             );
-            //TODO REQURE SQL
-            // double refundRatio = cancelledTicekt.getIsRU() ? 1.0 : 0.85;
-            // String isRU = cancelledTicekt.getIsRU() ? "our memeber" : "non-member";
-            // message.setSubject("Your Movie Ticket Cancelled Successfully");
-            // message.setText("The Cancelled Ticket is\n"+
-            // "Movie Name: "+cancelledTicekt.getMovie().getMovieName()+"\n"+
-            // "Movie Price: $"+cancelledTicekt.getMovie().getMoviePrice()+"\n"+
-            // "Theater: "+cancelledTicekt.getTheater().getTheaterName()+"\n"+
-            // "Address: "+cancelledTicekt.getTheater().getTheaterLocation()+"\n"+
-            // "Show Room: "+cancelledTicekt.getShowRoomID()+"\n"+
-            // "At: "+cancelledTicekt.getShowTime().getShownAt()+"\n"+
-            // "Seat Number: "+cancelledTicekt.getSeatNum()+"\n\n"+
-            // "Since you are "+isRU+"total refund credit is: "+cancelledTicekt.getMovie().getMoviePrice()*refundRatio+"\n"+
-            // "And it will valid untill: "+cancelledTicekt.getPurchasedDate().toString());
-            // Transport.send(message);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(cancelledTicekt.getPurchasedDate());
+            cal.add(Calendar.YEAR,1);
+            Date validUntill = new Date(cal.getTimeInMillis());
+            double refundRatio = cancelledTicekt.getIsRU() ? 1.0 : 0.85;
+            String isRU = cancelledTicekt.getIsRU() ? "our memeber" : "non-member";
+            Formatter fmt1 = new Formatter();
+            fmt1.format("%.2f",moviePrice);
+            Formatter fmt2 = new Formatter();
+            fmt2.format("%.2f",moviePrice*refundRatio);
 
+            message.setSubject("Your Movie Ticket Cancelled Successfully");
+            message.setText("The Cancelled Ticket is\n"+
+            "Movie Name: "+movieName+"\n"+
+            "Movie Price: $"+fmt1+"\n"+
+            "Since you are "+isRU+" total refund credit is: "+fmt2+"\n"+
+            "And it will valid untill: "+validUntill.toString());
+            Transport.send(message);
+            fmt1.close();
+            fmt2.close();
         } catch (MessagingException e) {
             e.printStackTrace();
         }

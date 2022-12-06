@@ -58,13 +58,11 @@ public class GUIframe {
         c.gridx = 1;
         c.gridy = 1;
         panel.add(button2, c);
-        JButton button3 = new JButton("Cancel Movie");
+        JButton button3 = new JButton("Cancel Ticket");
         button3.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GUICancelTicket cancelTicektGUI = new GUICancelTicket();
-				
 			}
 		});
         c.gridx = 2;
@@ -73,11 +71,11 @@ public class GUIframe {
 
         
         JButton button4 = new JButton("Register User");
-        button3.addActionListener(new ActionListener() {
+        button4.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GUICancelTicket registerUserGUI = new GUICancelTicket();
+				GUIRegisterUser registerUserGUI = new GUIRegisterUser();
 			}
 		});
         c.gridx = 3;

@@ -119,7 +119,7 @@ public class GUISelectSeat extends JFrame {
             	{
             		if(item.matches("Seat "+Integer.toString(showtime.getAllSeats().get(x).getSeatNum())))
             		{	
-            			ticketSeats.add(new Seat(x, true));
+            			ticketSeats.add(new Seat(x+1, true));
             		}
             	}
             }
