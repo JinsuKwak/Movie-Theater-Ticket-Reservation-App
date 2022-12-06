@@ -20,7 +20,7 @@ public class WeeklyNews implements Subject {
     private Connection dbConnect;
     private ResultSet results;
 
-    public WeeklyNews(ArrayList<Observer> observers, ArrayList<Movie> movies) {
+    public WeeklyNews() {
         initializeDriver();
     }
 
@@ -67,7 +67,7 @@ public class WeeklyNews implements Subject {
             public void run() {
                 try {
                     initializeConnection();
-                    String sql = "SELECT * FROM User";
+                    String sql = "SELECT * FROM User WHERE isAdmin=false";
                     PreparedStatement p = dbConnect.prepareStatement(sql);
                     ResultSet result = p.executeQuery();
                     while(result.next()) {
@@ -82,8 +82,6 @@ public class WeeklyNews implements Subject {
                         Recipient recipient = new Recipient(user);
                         registerObserver(recipient);
                     }
-
-
                     populateMoviesarray();
                 } catch (Exception e) {
                     e.printStackTrace();
