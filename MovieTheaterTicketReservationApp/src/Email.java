@@ -116,7 +116,7 @@ public class Email {
     
     }
 
-    public static void sendSubscription(String userFname, String userLname, int amount){
+    public static void sendSubscription(String recipientEmail, String subject, String message){
         System.out.println("USER SUBSCRIPTION");
     }
 
