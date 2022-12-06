@@ -19,18 +19,21 @@ public class Register extends SQLController {
     }
 
     public boolean isUniqueEmail() {
+        initializeConnection();
         try {
-            // SQL
-            String sql = "SELECT * FROM User WHERE email =?";
+            String sql = "SELECT * FROM User WHERE email = ?";
             PreparedStatement p = this.dbConnection.prepareStatement(sql);
             p.setString(1, userEmail);
             ResultSet result = p.executeQuery();
             if(result.next()) {
+                disconnectConnection();
                 return false;
             } else {
+                disconnectConnection();
                 return true;
             }
         } catch (Exception e) {
+            disconnectConnection();
             e.printStackTrace();
             return false;
         } 
@@ -41,22 +44,24 @@ public class Register extends SQLController {
     }
 
     public void registerUser() {
+        initializeConnection();
+        String staff = isStaff ? "true" : "false";
         try {
-            // SQL
             String sql = 
-            "INSERT INTO User" + 
+            "INSERT INTO User " + 
             "VALUES (?,?,?,?,?,?)";
             PreparedStatement p = this.dbConnection.prepareStatement(sql);
             p.setString(1, userEmail);
             p.setString(2, userPassword);
-            p.setString(3, userFname);
-            p.setString(4, userLname);
-            p.setString(3, String.valueOf(isStaff));
+            p.setString(3, staff);
+            p.setString(4, userFname);
+            p.setString(5, userLname);
             p.setString(6, userCardNum);
 
             if(!(p.executeUpdate() > 0)) {
                 throw new Exception("database did not register user");
             };
+            disconnectConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }

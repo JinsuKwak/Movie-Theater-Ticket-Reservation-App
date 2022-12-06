@@ -27,7 +27,7 @@ public class Ticket {
         this.showRoomID = srID;
         this.showTimeID = stID;
         this.seatNum = seatNo;
-        this.purchasedDate = new Date();  //miliseconds
+        this.purchasedDate = new Date(); 
     }
 
 	public Ticket(){

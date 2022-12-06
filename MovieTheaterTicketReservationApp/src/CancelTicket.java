@@ -57,12 +57,24 @@ public class CancelTicket extends SQLController {
         return isValid;
     }
 
+    public void deleteTicket() {
+        initializeConnection();
+        try{
+            String query = "DELETE FROM Ticket WHERE ticketID = ?";
+            PreparedStatement pStatement = dbConnection.prepareStatement(query);
+            pStatement.setString(1, ticketID);
+            pStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     
     public void updateSeat(){
         initializeConnection();
         ShowTime showTime = ticket.getShowTime();
-        int showTimeID = showTime.getShowTimeID();
-        int seatNum = ticket.getSeat().getSeatNum();
+        int showTimeID = ticket.getShowTimeID();
+        int seatNum = ticket.getSeatNum();
 
         try  {  
                 String query = "UPDATE Seat SET availability = ? WHERE seatNum = ? AND showTimeID = ?";
@@ -92,7 +104,25 @@ public class CancelTicket extends SQLController {
     }
 
     public void sendEmail(){
-        Email.sendEmailTicketCancelled(ticket);
+        initializeConnection();
+        String movieName = "";  
+        double moviePrice = 0;
+        try  {  
+            String query = "Select * FROM Movie WHERE movieID = ? AND theatreID = ?";
+            PreparedStatement pStatement = dbConnection.prepareStatement(query);
+            pStatement.setInt(1, ticket.getMovieID());
+            pStatement.setInt(2, ticket.getTheaterID());
+            ResultSet result = pStatement.executeQuery();
+            while (result.next()){
+                movieName = result.getString("movieName");
+                moviePrice = result.getDouble("moviePrice");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        disconnectConnection();
+        Email.sendEmailTicketCancelled(ticket , movieName, moviePrice);
     }
 
 }

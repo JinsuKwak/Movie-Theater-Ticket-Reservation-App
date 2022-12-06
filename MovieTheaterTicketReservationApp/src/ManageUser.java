@@ -9,7 +9,6 @@ public class ManageUser extends SQLController
     Register register;
     String deleteUserEmail;
     private final String TABLE_NAME = "User";
-    private Connection dbConnect;
     private ResultSet results;
 
     //constructor
@@ -17,37 +16,33 @@ public class ManageUser extends SQLController
     {   
         super("jdbc:mysql://localhost/movie_theatres","ensf480","ensf480");
         this.loginInstance = LoginInstance.getInstance();
-        initializeDriver();
-        initializeConnection();
     }
 
-    public void addUser(String uEmail, String uPW, String uFN, String uLN, boolean isStaff, String uCardNum)
-    {
+    public void addUser(Register register, boolean isStaff)
+    {       
+        this.register = register;   
+        initializeConnection();
         if(loginInstance.getIsAdmin()){  // only executable when already logged as admin
             if(isStaff == true){
-                uCardNum = new String("");
                 register.setToStaff();
             }
-            this.register = new Register(uEmail, uPW, uFN, uLN, uCardNum);
             register.registerUser();
         }
+        disconnectConnection();
     }
 
-    public void deleteUser(String uEmail) 
+    public void deleteUser(String uEmail) throws SQLException
     {
-        this.deleteUserEmail = uEmail;
+        initializeConnection();
         if(loginInstance.getIsAdmin())// only executable when already logged as admin
         {  
-            // if(User.getUserEmail() == uEmail)
-            // {
-                try{
-                    String query = "DELETE FROM movie_theatres WHERE email = " + uEmail;
-                    PreparedStatement preparedStatement = dbConnect.prepareStatement(query);
-                    preparedStatement.executeUpdate(query);
-                    preparedStatement.close();
-                } catch(SQLException e){
-                    e.printStackTrace();
-                }}
+            String query = "DELETE FROM User WHERE email = ?";
+            PreparedStatement pStatement = dbConnection.prepareStatement(query);
+            pStatement.setString(1, uEmail);
+            pStatement.executeUpdate(query);
+
+        }
+        disconnectConnection();
     }
 
     public String getTableName() {
@@ -55,7 +50,7 @@ public class ManageUser extends SQLController
     }
 
     public Connection getDbConnect() {
-        return dbConnect;
+        return dbConnection;
     }
 
     public ResultSet getResults() {

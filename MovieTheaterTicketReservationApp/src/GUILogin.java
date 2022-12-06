@@ -156,25 +156,39 @@ public class GUILogin extends JFrame {
 					password = password.trim();
 					if(username.contains("@")){
 						login = new Login(username, password);
-						System.out.println(username);
-						System.out.println(password);
 						login.validate();
 						if(loginInstance.getIsLoggedIn()){
 							if(loginInstance.getIsAdmin()){
 								showMessageDialog(null, "Logged In Successfuly as Admin: "+
 								loginInstance.getUser().getUserFname()+" "+loginInstance.getUser().getUserLname());
-								//TODO ADMIN FEATRUE
-				
+								username = "";
+								tempusername= "";
+								password = "";
+								temppassword = "";
+								PasswordInput.setText("");
+								UsernameInput.setText("");
+								InputedPassword.setText(username);
+								InputedUsername.setText(password);
+								GUISelectAdminFeature adminFeatureGUI = new GUISelectAdminFeature();
 							} else {
 								showMessageDialog(null, "Wellcome Back: "+
 								loginInstance.getUser().getUserFname()+" "+loginInstance.getUser().getUserLname());
+								username = "";
+								tempusername= "";
+								password = "";
+								temppassword = "";
+								PasswordInput.setText("");
+								UsernameInput.setText("");
+								InputedPassword.setText(username);
+								InputedUsername.setText(password);
 								GUISelectMovie selectMovieGUI = new GUISelectMovie();
-							
 							}
 						} else {
 							showMessageDialog(null, "Wrong Credentials. Please Try again");
 							username = "";
+							tempusername= "";
 							password = "";
+							temppassword = "";
 							PasswordInput.setText("");
 							UsernameInput.setText("");
 							InputedPassword.setText(username);
@@ -183,14 +197,18 @@ public class GUILogin extends JFrame {
 					} else {
 						showMessageDialog(null, "E-mail Addresss must contain '@'");
 						username = "";
+						tempusername= "";
 						password = "";
+						temppassword = "";
 						PasswordInput.setText("");
 						UsernameInput.setText("");
 						InputedPassword.setText(username);
 						InputedUsername.setText(password);
 					}
 					username = "";
+					tempusername= "";
 					password = "";
+					temppassword = "";
 					PasswordInput.setText("");
 					UsernameInput.setText("");
 					InputedPassword.setText(username);

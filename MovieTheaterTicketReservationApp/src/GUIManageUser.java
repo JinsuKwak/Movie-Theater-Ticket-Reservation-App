@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class GUIRegisterUser {
-
-    public GUIRegisterUser() {
+public class GUIManageUser {
+    private boolean isStaff = false;
+    public GUIManageUser () {
 
         // create a JFrame
         JFrame frame = new JFrame("Sign Up");
@@ -79,19 +79,31 @@ public class GUIRegisterUser {
         c.gridy = 4;
         panel.add(cardField, c);
 
-        // create a sign up button
-        JButton signUpButton = new JButton("Sign Up");
+        // create a label and text field for entering password
+        JLabel deleteUserLabel = new JLabel("Enter User E-mail to Delete:");
+        deleteUserLabel.setForeground(new Color(225,225,225));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 7;
+        panel.add(deleteUserLabel, c);
+        JTextField deleteUserEmailField = new JTextField(20);
+        c.gridx = 1;
+        c.gridy = 7;
+        panel.add(deleteUserEmailField, c);
+
+        // create a sign up button
+        JButton signUpButton = new JButton("Add User");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 6;
         c.gridwidth = 2;
         panel.add(signUpButton, c);
-
+        
         // add JPanel to JFrame
         frame.add(panel);
 
         // set size of JFrame and make it visible
-        frame.setSize(400, 400);
+        frame.setSize(600, 400);
         frame.setVisible(true);
         signUpButton.addActionListener(new ActionListener() {
 			
@@ -103,9 +115,10 @@ public class GUIRegisterUser {
                         if((firstnamefield.getText().length() != 0) && (lastnamefield.getText().length() != 0 ) &&(passwordField.getText().length() != 0)){
                             Register user = new Register(usernameField.getText(), passwordField.getText(), firstnamefield.getText(), lastnamefield.getText(), cardField.getText());
                             if(user.isUniqueEmail()){
-                                user.registerUser();
+                                ManageUser manageUser = new ManageUser(); 
+                                manageUser.addUser(user, isStaff);
                                 showMessageDialog(null, "Register Successful\n"+
-                            "thank you for being our member");
+                            "New User has been added");
                             } else {
                                 showMessageDialog(null, "The E-Mail currently in Use\n"+
                                 "Please input another E-mail Address");
@@ -124,5 +137,55 @@ public class GUIRegisterUser {
                 }
 			}
 		});
+
+        JButton setStaffButton = new JButton("Set User as Staff (toggle)");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 5;
+        c.gridwidth = 2;
+        panel.add(setStaffButton, c);
+
+        setStaffButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                if(isStaff == false){
+                    isStaff = true;
+                } else {
+                    isStaff = false;
+                }
+            }
+        });
+
+        // create a sign up button
+        JButton deleteUserButton = new JButton("Delete User");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 8;
+        c.gridwidth = 2;
+        panel.add(deleteUserButton, c);
+        deleteUserButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                if(deleteUserEmailField.getText().length() != 0){
+                    if(deleteUserEmailField.getText().contains("@")){
+                        String uEmail = deleteUserEmailField.getText().trim();
+                        ManageUser manageUser = new ManageUser(); 
+                        try{
+                            manageUser.deleteUser(uEmail);
+                        } catch (Exception e1){
+                            e1.printStackTrace();
+                            showMessageDialog(null, "User not exist, please enter an exisiting User"); 
+                            deleteUserEmailField.setText("");
+                        }
+                    } else {
+                        showMessageDialog(null, "E-mail Addresss must contain '@'");
+                        deleteUserEmailField.setText("");
+                    }
+                } else {
+                    showMessageDialog(null, "This field cannot be blank");
+            }
+            }
+        });
     }
 }
