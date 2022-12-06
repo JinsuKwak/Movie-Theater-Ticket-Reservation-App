@@ -8,6 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AnnualFee {
+    //class variables
     private static int ANNUAL_FEE = 20;
     private ArrayList<User> allRegisteredUsers = new ArrayList<>();
     private final String DBURL = "jdbc:mysql://localhost/movie_theatres";
