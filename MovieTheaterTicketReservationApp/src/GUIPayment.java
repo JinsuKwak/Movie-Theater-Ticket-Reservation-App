@@ -54,11 +54,6 @@ public class GUIPayment extends JFrame {
 		this.ticket = ticket;
 		this.ticketSeats = ticketSeats;
 		totalPrice = ticket.getMovie().getMoviePrice()*ticketSeats.size();
-		System.out.println("Per Seats: "+ticket.getMovie().getMoviePrice());
-		System.out.println("Total Price: "+totalPrice);
-		for(Seat seat: ticketSeats){
-			System.out.println(seat.getSeatNum());
-		}
 		if(loginInstance.getIsLoggedIn()){
 			emailText.setText(loginInstance.getUser().getUserEmail());
 			cardNumberText.setText(loginInstance.getUser().getcardNumber());

@@ -59,7 +59,7 @@ public class WeeklyNews implements Subject {
         }
     }
 
-    private void startAnnualFee() {
+    public void distributeNews() {
         initializeConnection();
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {

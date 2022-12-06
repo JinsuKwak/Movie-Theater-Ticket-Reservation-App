@@ -121,12 +121,66 @@ public class Email {
     
     }
 
-    public static void sendSubscription(String recipientEmail, String subject, String message){
-        System.out.println("USER SUBSCRIPTION");
+    public static void sendSubscription(String recipientEmail, String subject, String messageF){
+        Properties prop = new Properties();
+		prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "465");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.socketFactory.port", "465");
+        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        Session session = Session.getInstance(prop,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user, pw);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("testemail010203040506@gmail.com"));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse(recipientEmail)
+            );
+            message.setSubject(subject);
+            message.setText(messageF);
+            Transport.send(message);
+  
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void sendMovieNews(String recipientEmail, String subject, String message) {
-        System.out.println("USER MOVIE NEWS");
+    public static void sendMovieNews(String recipientEmail, String subject, String messageF) {
+        Properties prop = new Properties();
+		prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "465");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.socketFactory.port", "465");
+        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        Session session = Session.getInstance(prop,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user, pw);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("testemail010203040506@gmail.com"));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse(recipientEmail)
+            );
+            message.setSubject(subject);
+            message.setText(messageF);
+            Transport.send(message);
+  
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
 }
