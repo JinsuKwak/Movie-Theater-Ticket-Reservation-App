@@ -1,10 +1,16 @@
-//control class
-//maarya
+/**
+ * maarya, jinsu, nour, neil
+ * ENSF 480 Project
+ * ManageMovie.java
+ * 
+ */
+
 import java.sql.*;
 import java.sql.PreparedStatement;
 
-public class ManageMovie  extends SQLController
+public class ManageMovie  extends SQLController //uses the SQL controller file to get username, and password for connection to jar file
 {
+    //variables
     private final String TABLE_NAME = "Movie";
     private Connection dbConnect;
     private ResultSet results;
@@ -12,6 +18,10 @@ public class ManageMovie  extends SQLController
     LoginInstance loginInstance;
     int deleteMovieID;
 
+    //constructor
+    /**
+     * constructor
+     */
     public ManageMovie(){
         super("jdbc:mysql://localhost/movie_theatres","ensf480","ensf480");
         this.loginInstance = LoginInstance.getInstance();
@@ -19,6 +29,18 @@ public class ManageMovie  extends SQLController
     }
 
 
+    //adding a movie with parameters so we can insert that movie in to the movie table in the database
+    /**
+     * 
+     * @param mvID
+     * @param mvName
+     * @param openDate
+     * @param moviePrice
+     * @param theID
+     * @param showRoomID
+     * @param showTimeID
+     * @param shownAt
+     */
     public void addMovie(int mvID, String mvName, String openDate, double moviePrice, int theID, int showRoomID, int showTimeID, String shownAt)
     {
         //to insert into movie
@@ -42,8 +64,10 @@ public class ManageMovie  extends SQLController
         {
             e.printStackTrace();
         }
+
         //to insert into showtime 
         try{
+            //here we need to insert data into the showtime table in our database
             String query2 = "INSERT INTO ShowTime (showTimeID, shownAt) VALUES (?,?)"; //for inserting into 
     
             PreparedStatement myStmt = dbConnect.prepareStatement(query2);
@@ -60,8 +84,9 @@ public class ManageMovie  extends SQLController
         {
             e.printStackTrace();
         }
-        //to insert into showtime 
+        //to insert into showroom
         try{
+            //inserting into showroom with data passed 
             String query3 = "INSERT INTO ShowRoom (showRoomID,) VALUES (?)"; //for inserting into showroom
     
             PreparedStatement myStmt = dbConnect.prepareStatement(query3);
@@ -85,6 +110,10 @@ public class ManageMovie  extends SQLController
         disconnectConnection();
     }
 
+    /**
+     * removeMovie from database
+     * @param movieID
+     */
     public void removeMovie(int movieID)
     {
         initializeConnection();
@@ -105,15 +134,24 @@ public class ManageMovie  extends SQLController
         disconnectConnection();
 
     }
-
+    /**
+     * 
+     * @return
+     */
     public String getTableName() {
         return TABLE_NAME;
     }
-
+    /**
+     * 
+     * @return
+     */
     public Connection getDbConnect() {
         return dbConnect;
     }
-
+/**
+ * 
+ * @return
+ */
     public ResultSet getResults() {
         return results;
     }

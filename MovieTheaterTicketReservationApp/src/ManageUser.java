@@ -1,10 +1,15 @@
-//control class
-//maarya
+/**
+ * maarya, jinsu, nour, neil
+ * ENSF 480 Project
+ * ManageUser.java
+ * 
+ */
 import java.sql.*;
 import java.sql.PreparedStatement;
 
 public class ManageUser extends SQLController
 {
+    //class variables
     LoginInstance loginInstance;
     Register register;
     String deleteUserEmail;
@@ -18,6 +23,11 @@ public class ManageUser extends SQLController
         this.loginInstance = LoginInstance.getInstance();
     }
 
+    /**
+     * addUser method
+     * @param register
+     * @param isStaff
+     */
     public void addUser(Register register, boolean isStaff)
     {       
         this.register = register;   
@@ -31,6 +41,11 @@ public class ManageUser extends SQLController
         disconnectConnection();
     }
 
+    /**
+     * deleteUser
+     * @param uEmail
+     * @throws SQLException
+     */
     public void deleteUser(String uEmail) throws SQLException
     {
         initializeConnection();
@@ -44,15 +59,24 @@ public class ManageUser extends SQLController
         }
         disconnectConnection();
     }
-
+    /**
+     * 
+     * @return
+     */
     public String getTableName() {
         return TABLE_NAME;
     }
-
+    /**
+     * 
+     * @return
+     */
     public Connection getDbConnect() {
         return dbConnection;
     }
-
+    /**
+     * 
+     * @return
+     */
     public ResultSet getResults() {
         return results;
     }

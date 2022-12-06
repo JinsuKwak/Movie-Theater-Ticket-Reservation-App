@@ -1,4 +1,9 @@
-
+/**
+ * maarya, jinsu, nour, neil
+ * ENSF 480 Project
+ * Payment.java
+ * 
+ */
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -6,11 +11,17 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Payment extends SQLController {
+    //class variables
     private LoginInstance loginInstance;
     private Ticket mainTicket;
     private ArrayList<Seat> ticketSeats;
     private ArrayList<Ticket> totalTickets;
 
+    /**
+     * 
+     * @param mainTicket
+     * @param ticketSeats
+     */
     public Payment(Ticket mainTicket, ArrayList<Seat> ticketSeats)
     {
         super("jdbc:mysql://localhost/movie_theatres", "ensf480", "ensf480");
@@ -19,7 +30,9 @@ public class Payment extends SQLController {
         this.loginInstance = LoginInstance.getInstance();
         totalTickets = new  ArrayList<Ticket>();
     }
-
+    /**
+     * createTickets method
+     */
     public void createTickets(){
         initializeConnection();
         for(Seat seat: ticketSeats){
@@ -59,7 +72,9 @@ public class Payment extends SQLController {
     public void makePayment(){
         // assume this method does interction with fiancial company
     }
-
+    /**
+     * updateSeat method
+     */
     public void updateSeat(){
         initializeConnection();
             ShowTime showTime = mainTicket.getShowTime();
@@ -93,7 +108,7 @@ public class Payment extends SQLController {
             }
         disconnectConnection();
     }
-
+    //send email method
     public void sendEmail(){
         Email.sendEmailTicketPurchased(mainTicket, totalTickets);
     }
