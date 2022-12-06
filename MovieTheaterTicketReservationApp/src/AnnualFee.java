@@ -36,7 +36,13 @@ public class AnnualFee {
                                 result.getString("cardNumber"));
                         allRegisteredUsers.add(user);
                     }
-                    processPayment();
+                    for (User user : allRegisteredUsers) {
+                        String recipient = user.getUserEmail();
+                        String subject = "Annual Fee";
+                        String message = "Dear " + user.getUserFname() + user.getUserLname() + "\n"
+                                + "your annual fee that is due at the beginning of each year is $" + ANNUAL_FEE;
+                        Email.sendSubscription(recipient, subject, message);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -51,15 +57,4 @@ public class AnnualFee {
         long convertion = 31536000000L;
         return year * convertion;
     }
-
-    private void processPayment() {
-        for (User user : allRegisteredUsers) {
-            String recipient = user.getUserEmail();
-            String subject = "Annual Fee";
-            String message = "Dear " + user.getUserFname() + user.getUserLname() + "\n"
-                    + "your annual fee that is due at the beginning of each year is $" + ANNUAL_FEE;
-            Email.sendSubscription(recipient, subject, message);
-        }
-    }
-
 }
